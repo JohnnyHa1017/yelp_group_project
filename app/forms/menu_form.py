@@ -14,6 +14,6 @@ class NewMenu(FlaskForm):
     description = StringField('Description')
     # image = StringField()
 
-class MenuImageForm(FlaskForm):
-    image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
-    submit = SubmitField("Create Post")
+# class MenuImageForm(FlaskForm):
+    # image = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
+#     submit = SubmitField("Create Post")

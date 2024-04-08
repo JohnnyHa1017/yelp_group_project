@@ -14,7 +14,7 @@ class Review(db.Model):
     user_id = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     review = Column(String(2000), nullable=False)
     star = Column(Integer, nullable=False)
-    image = Column(String, nullable=True)
+    # image_url = Column(String)
     createdAt = db.Column(db.DateTime, default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -29,7 +29,7 @@ class Review(db.Model):
         'business_id': self.business_id,
         'review': self.review,
         'star': self.star,
-        'image': self.image,
+        # 'image_url': self.image_url,
         'createdAt': self.createdAt,
         'updatedAt': self.updatedAt
         }

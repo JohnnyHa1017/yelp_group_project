@@ -10,7 +10,7 @@ class BusinessImage(db.Model):
 
     id = Column(Integer, primary_key=True)
     business_id = Column(Integer, ForeignKey(add_prefix_for_prod('businesses.id')), nullable=False)
-    url = Column(String(2000))
+    url = Column(String)
     preview = Column(Boolean)
     menu_id = Column(Integer, ForeignKey(add_prefix_for_prod('menus.id')), nullable=True)
 

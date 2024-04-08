@@ -31,26 +31,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [category, setCategory] = useState(business?.category);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
-  console.log(allbusiness)
-  console.log(setImage)
-  // const [mondayopen, setMondayOpen] = useState('')
-  // const [mondayclose, setMondayClose]= useState('')
-  // const [tuesdayopen, setTuesdayOpen] = useState('')
-  // const [tuesdayclose, setTuesdayClose] = useState('')
-  // const [wednesdayopen, setWednesdayOpen] = useState('')
-  // const [wednesdayclose, setWednesdayClose] = useState('')
-  // const [thursdayopen, setThursdayOpen] = useState('')
-  // const [thursdayclose, setThursdayClose] = useState('')
-  // const [fridayopen, setFridayOpen] = useState('')
-  // const [fridayclose, setFridayClose] = useState('')
-  // const [saturdayopen, setSaturdayOpen] = useState('')
-  // const [saturdayclose, setSaturdayClose] = useState('')
-  // const [sundayopen, setSundayOpen] = useState('')
-  // const [sundayclose, setSundayClose] = useState('')
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
-  console.log(submitted)
-  // console.log(setImage)
+
   let isValidated = false
 
   useEffect(() => {
@@ -125,15 +108,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     const formData = new FormData();
     formData.append("image", image);
 
-    // if (!Object.keys(validations).length) {
-    // let createSchedule = `Monday: ${mondayopen} - ${mondayclose},
-    //                       Tuesday: ${tuesdayopen} - ${tuesdayclose},
-    //                       Wednesday: ${wednesdayopen} - ${wednesdayclose},
-    //                       Thursday: ${thursdayopen} - ${thursdayclose},
-    //                       Friday: ${fridayopen} - ${fridayclose},
-    //                       Saturday: ${saturdayopen} - ${saturdayclose},
-    //                       Sunday: ${sundayclose} - ${sundayclose}
-    //                     `
     let createSchedule = ''
 
     let business = {

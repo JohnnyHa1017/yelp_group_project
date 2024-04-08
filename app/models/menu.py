@@ -14,7 +14,7 @@ class Menu(db.Model):
     category = Column(db.Enum('Appetizer', 'Entree', 'Drink', 'Dessert', 'Specials', name='category'), nullable=False)
     price = Column(Float(precision=2))
     description = Column(String(2000))
-    image = Column(String(500), nullable=True)
+    # image = Column(String(500), nullable=True)
 
     businesses = relationship('Business', back_populates='menus')
     business_images = relationship('BusinessImage', back_populates='menus', cascade='all, delete-orphan')
@@ -26,6 +26,6 @@ class Menu(db.Model):
             'name': self.name,
             'category': self.category,
             'price': self.price,
-            'description': self.description,
-            'image': self.image
+            'description': self.description
+            # 'image': self.image
         }

@@ -23,7 +23,7 @@ class Business(db.Model):
   phone_number = Column(String(25), nullable=False)
   description = Column(String(2000))
   schedule = Column(String(500), nullable=True)
-  image = Column(String(500), nullable=True)
+  # image_url = Column(String)
 
   users = relationship('User', back_populates='businesses')
   menus = relationship('Menu', back_populates='businesses', cascade='all, delete-orphan')
@@ -46,6 +46,6 @@ class Business(db.Model):
       'lng': self.lng,
       'phone_number': self.phone_number,
       'description': self.description,
-      'schedule':self.schedule,
-      'image': self.image
+      'schedule':self.schedule
+      # 'image_url': self.image_url
     }

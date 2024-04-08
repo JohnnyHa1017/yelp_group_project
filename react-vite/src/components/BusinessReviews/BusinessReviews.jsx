@@ -15,16 +15,11 @@ function BusinessReviews() {
     const currUser = useSelector((state) => state.session.user)
     const users = useSelector((state) => state.business.Users)
 
-    // console.log('users ==>', users)
-    // console.log('curruser ==>', currUser)
-    console.log('reviews ==>', reviews)
-    console.log('reviewImages ==>', reviewImages)
 
     useEffect(() => {
         dispatch(businessReviewThunk(businessId))
         dispatch(landingPageThunk())
     }, [dispatch, businessId])
-
 
 
     //isOwnerofReview

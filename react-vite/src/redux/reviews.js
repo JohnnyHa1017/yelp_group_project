@@ -4,6 +4,7 @@ export const CREATE_REVIEW = 'business/CREATE_REVIEW'
 export const UPDATE_REVIEW = 'business/UPDATE_REVIEW'
 export const DELETE_REVIEW = 'business/DELETE_REVIEW'
 export const ALL_REVIEW = 'review/ALL'
+
 // Action Types
 const getAllReviews = (allReviews)=>{
     return{
@@ -139,7 +140,7 @@ function reviewReducer(state={}, action){
             return { ...state, ...action.data}
         }
         case UPDATE_REVIEW:{
-            
+
             return { ...state, ...action.updatedReview.reviews}
         }
         case DELETE_REVIEW:{

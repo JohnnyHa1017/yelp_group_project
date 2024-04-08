@@ -28,13 +28,12 @@ export default function OneBusiness() {
   const menus = useSelector(state => state.menus)
   const currUser = useSelector(state => state.session)
   const { businessId } = useParams()
-  // console.log('menus ==>', menus)
 
   const [deleteBus, setDeleteBus] = useState(false)
   const reRenderOnDelete = () => {
     setDeleteBus(!deleteBus)
   }
-  
+
   //get average start rating
   let avgStarRating = 0
   let priceRating = 1
@@ -118,7 +117,6 @@ export default function OneBusiness() {
         amenities = eachAm
       }
     }
-    console.log('amenities ==>', amenities)
     for (const key in amenities) {
       // if (amenities.hasOwnProperty(key)) {
         switch (key) {
@@ -300,7 +298,7 @@ export default function OneBusiness() {
                 <BusinessReviews />
               </div>
             </div>
-            
+
             <div className="business-dtl-info-container">
               <div className="business-dtl-info-box">
                 <h2>Order Online</h2>

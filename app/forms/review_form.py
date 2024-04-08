@@ -12,6 +12,6 @@ class CreateReview(FlaskForm):
     # image = StringField('Image String')
 
 class ReviewImageForm(FlaskForm):
-    image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
-    submit = SubmitField("Create Post")
+    url = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
+#     submit = SubmitField("Create Post")
 
