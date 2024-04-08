@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "boto3": "^0.0.1",
-    "date-fns": "^3.6.0",
-    "react-responsive-carousel": "^3.2.23"
-  }
-}

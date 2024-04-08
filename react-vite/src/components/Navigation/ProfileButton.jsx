@@ -54,7 +54,9 @@ function ProfileButton() {
             <>
               <div className='prof-btn-items hello-user-text'>Hello {user.username}</div>
               <div className='prof-btn-items'>{user.email}</div>
-              <div className='prof-btn-items'><button onClick={logout} className='logout-btn'>Log Out</button></div>
+              <div className='prof-btn-items'>
+                <button onClick={logout} className='logout-btn'>Log Out</button>
+              </div>
             </>
           ) : (
             <>
