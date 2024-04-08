@@ -49,6 +49,7 @@
     margin: 4px 0 4px 0;
     padding: 8px;
     width: 43%;
+    min-width: 180px;
 }
 
 .menu-detail-text {
