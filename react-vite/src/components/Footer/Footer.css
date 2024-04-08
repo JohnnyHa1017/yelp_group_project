@@ -1,0 +1,63 @@
+.footer-container{
+    position: absolute;
+    bottom: 100;
+    left: 0;
+    width: 100%;
+    background-color: rgb(26, 121, 255, 0.1);
+    padding-bottom: 20px;
+    margin-top: 15px;
+    border-top: 1px solid lightgray;
+}
+
+.github-logo{
+    color: black;
+    padding-right: 5px;
+}
+
+.linkedin-logo{
+    color: rgb(7, 98, 200);
+    padding-right: 5px;
+}
+
+.footer-link{
+    text-decoration: none;
+    color: black;
+    padding: 5px 0;
+}
+
+.footer-link:hover{
+    color: rgb(26,121,255);
+}
+
+.contacts-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.contacts{
+    display: flex;
+    flex-direction: column;
+}
+
+.contactus-txt{
+    text-align: center;
+    margin: 0;
+    padding: 10px 0 5px 0;
+}
+
+.footer-top{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.munch-git{
+    text-decoration: underline;
+    font-size: 18px;
+    padding-bottom: 20px;
+}
+
+.munch-logo{
+    color: rgb(7, 98, 200);
+}
