@@ -17,6 +17,7 @@ import MenusByBusinessId from '../components/Menu/MenusByBusiness';
 import CreateMenu from '../components/Menu/CreateMenu';
 import ManageBusiness from '../components/ManageBusiness/ManageBusiness';
 import CreateAmenity from '../components/CreateAmenities/CreateAmenities';
+import Category from '../components/Category/Category'
 
 export const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
       {
         path:'*',
         element: <h1>Page not found</h1>
+      },
+      {
+        path: 'category/:category',
+        element: <Category />
       }
     ],
   },

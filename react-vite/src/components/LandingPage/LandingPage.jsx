@@ -11,11 +11,10 @@ import { NavLink } from 'react-router-dom';
 import ImageCarousel from "../Carousel/Carousel";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 import { formatDistanceToNow } from 'date-fns';
-import { MdOutlineTakeoutDining, MdOutlineDinnerDining, MdGroups, MdBrunchDining, MdOutlineIcecream } from "react-icons/md";
-import { IoWineSharp } from "react-icons/io5";
-import { FaMoon } from "react-icons/fa";
-import { IoIosMore } from "react-icons/io";
+import { IoIosCafe } from "react-icons/io";
 import { SiYelp } from "react-icons/si";
+import { BiSolidSushi } from "react-icons/bi";
+
 
 
 import './LandingPage.css'
@@ -193,14 +192,30 @@ export default function LandingPage() {
                 <div className='landing-categories'>
                     <h2 className='landing-categories-text'>Categories</h2>
                     <div className='landing-category-container'>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineDinnerDining className='landing-cat-favicon' /><p>Dinner</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineTakeoutDining className='landing-cat-favicon' /><p>Take Out</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdGroups className='landing-cat-favicon' /><p>Good For Groups</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdBrunchDining className='landing-cat-favicon' /><p>Brunch</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><MdOutlineIcecream className='landing-cat-favicon' /><p>Dessert</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><FaMoon className='landing-cat-favicon' /><p>Open Late</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoWineSharp className='landing-cat-favicon' /><p>Fine Dining</p></NavLink>
-                        <NavLink to='/' className='landing-category' onClick={() => alert('Feature coming soon')}><IoIosMore className='landing-cat-favicon' /><p>More</p></NavLink>
+                        <NavLink to='category/Cafe' className='landing-category'>
+                            <p>Cafe</p>
+                        </NavLink>
+                        <NavLink to='category/Japanese' className='landing-category'>
+                            <p>Japanese</p>
+                        </NavLink>
+                        <NavLink to='category/Italian' className='landing-category'>
+                            <p>Italian</p>
+                        </NavLink>
+                        <NavLink to='category/Bar' className='landing-category'>
+                            <p>Bar</p>
+                        </NavLink>
+                        <NavLink to='category/Seafood' className='landing-category'>
+                            <p>Seafood</p>
+                        </NavLink>
+                        <NavLink to='category/German' className='landing-category'>
+                            <p>German</p>
+                        </NavLink>
+                        <NavLink to='category/Asian Fusion' className='landing-category'>
+                            <p>Asian Fusion</p>
+                        </NavLink>
+                        <NavLink to='category/Dessert' className='landing-category'>
+                            <p>Dessert</p>
+                        </NavLink>
                     </div>
                 </div>
             </div>

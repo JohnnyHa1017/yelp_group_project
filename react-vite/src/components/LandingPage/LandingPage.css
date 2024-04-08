@@ -137,10 +137,7 @@
     color: rgb(26,121,255);
 }
 
-.landing-category:hover .landing-cat-favicon{
-    color: rgb(26,121,255);
-}
-.landing-category:hover{
+.landing-category:hover {
     color: rgb(26,121,255);
 }
 
