@@ -15,6 +15,11 @@
     color: inherit;
 }
 
+.landing-card-image{
+    max-height: 200px;
+    width: 100%;
+}
+
 .landing-business-name {
     font-weight: bold;
 }

@@ -12,8 +12,7 @@ import ImageCarousel from "../Carousel/Carousel";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 import { formatDistanceToNow } from 'date-fns';
 import { SiYelp } from "react-icons/si";
-
-
+import default_business_background from '../../images/default_business_background.jpg'
 
 
 import './LandingPage.css'
@@ -120,8 +119,19 @@ export default function LandingPage() {
                 );
             default:
                 return null;
-        }
+        }dedefauly
     }
+
+    console.log(allBusiness[0].businessImages[0].url, 'all businesses!!!')
+    function prevImg(images){
+        console.log(images, 'images arr')
+        const preview = images.filter(img => img.preview == true)
+        if(!preview.length){
+            return default_business_background
+        }
+        return preview[0]?.url
+    }
+
     return (
         <>
             <div style={{ marginBottom: '500px' }}>
@@ -139,6 +149,7 @@ export default function LandingPage() {
                     return (
                         <NavLink to={`/business/${business.id}`} className='business-card' key={business.id}>
                             <h2 className="landing-card-title">{business.title}</h2>
+                            <img src={prevImg(business.businessImages)} className='landing-card-image'/>
                             <p className="landing-price-rating">{renderPriceRating(business.price_rating)}</p>
                             <p><span className="landing-card-titles">Phone Number:</span> {business.phone_number}</p>
                             <p><span className="landing-card-titles">Country:</span> {business.country}
