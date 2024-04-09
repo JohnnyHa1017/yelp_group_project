@@ -91,3 +91,35 @@ def post_review_images(id):
 
         return jsonify({'message': 'Successfully uploaded image'}), 200
     return form.errors, 400
+
+
+# PUT Business Images
+@bp.route('/<int:id>/update/images', methods=['PUT'])
+@login_required
+def update_review_images(id):
+    review_image = ReviewImage.query.get(id)
+    review = Review.query.filter(Review.id == review_image.review_id).first()
+
+    if not review_image:
+        return jsonify({'errors': 'Review image was not found'}), 404
+
+    if review.user_id != current_user.id:
+        return jsonify({'errors': 'You are not authorized to edit this review image.'}), 403
+
+    form = ReviewImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate():
+        if 'url' in request.files:
+            update_request = request.files['url']
+            update_request.filename = get_unique_filename(update_request.filename)
+            upload = upload_file_to_s3(update_request)
+
+            if 'url' not in upload:
+                return jsonify({'errors': 'Failed to upload image'}), 400
+
+            review_image.url = upload['url']
+        db.session.commit()
+
+        return jsonify({'message': 'Image updated successfully'}), 200
+    return jsonify({'errors': form.errors}), 400

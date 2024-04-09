@@ -233,7 +233,6 @@ def post_business_images(id):
 
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
-        print('UPLOAD @@@===>', upload)
 
         if 'url' not in upload:
             return jsonify({'errors': 'Failed to upload image'}), 400
@@ -251,4 +250,42 @@ def post_business_images(id):
         db.session.commit()
 
         return jsonify({'message': 'Image uploaded successfully'}), 200
-    return form.errors, 400
+    return jsonify({'errors': form.errors}), 400
+
+
+# PUT Business Images
+@bp.route('/<int:id>/edit/images', methods=['PUT'])
+@login_required
+def update_business_images(id):
+    business_image = BusinessImage.query.get(id)
+    business = Business.query.filter(Business.id == business_image.business_id).first()
+
+
+    if not business_image:
+        return jsonify({'errors': 'Business image was not found'}), 404
+
+    if business.owner_id != current_user.id:
+        return jsonify({'errors': 'You are not authorized to edit this business image.'}), 403
+
+    form = BusinessImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate():
+        if 'url' in request.files:
+            update_request = request.files['url']
+            update_request.filename = get_unique_filename(update_request.filename)
+            upload = upload_file_to_s3(update_request)
+
+            if 'url' not in upload:
+                return jsonify({'errors': 'Failed to upload image'}), 400
+
+            business_image.url = upload['url']
+
+        business_image.preview = form.preview.data
+        business_image.menu_id = form.menu_id.data
+
+        db.session.commit()
+
+        return jsonify({'message': 'Image updated successfully'}), 200
+    return jsonify({'errors': form.errors}), 400
+
