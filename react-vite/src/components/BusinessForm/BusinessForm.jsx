@@ -31,7 +31,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [category, setCategory] = useState(business?.category);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
-  const [preview, setPreview] = useState(false)
+  // const [preview, setPreview] = useState(false)
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
@@ -134,7 +134,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       if (createBusiness && createBusiness.id) {
         const formData = new FormData();
         formData.append("url", image);
-        formData.append('preview', preview)
+        formData.append('preview', true)
         formData.append('business_id', createBusiness.id)
         await dispatch(createBusinessImageThunk(createBusiness.id, formData))
         setImageLoading(true);
