@@ -27,6 +27,7 @@
 .login-btn:hover{
     background-color: rgb(26,121,255);
     border: 1px solid rgb(26,121,255);
+    cursor: pointer;
 }
 
 .demo-login-btn{

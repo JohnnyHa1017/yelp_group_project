@@ -17,6 +17,7 @@ function ImageCarousel() {
                     autoPlay infiniteLoop interval={2000}
                     showThumbs={false}
                     showArrows={false}
+                    showStatus={false}
                     transitionMode="fade"
                 >
                     <div>

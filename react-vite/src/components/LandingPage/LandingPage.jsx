@@ -11,9 +11,8 @@ import { NavLink } from 'react-router-dom';
 import ImageCarousel from "../Carousel/Carousel";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 import { formatDistanceToNow } from 'date-fns';
-import { IoIosCafe } from "react-icons/io";
 import { SiYelp } from "react-icons/si";
-import { BiSolidSushi } from "react-icons/bi";
+
 
 
 

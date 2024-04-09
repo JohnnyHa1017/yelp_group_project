@@ -50,10 +50,13 @@
     box-sizing: border-box;
     text-decoration: none;
     font-weight: bold;
+    color: #1A79FF;
 }
+
 
 .landing-category:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: rgb(26,121,255)
 }
 
 .carousel-container {
@@ -68,10 +71,10 @@
     font-size: 1.5rem
 }
 
-.landing-category:visited,
+/* .landing-category:visited,
 .landing-business-review-container:visited {
     color: inherit;
-}
+} */
 
 .landing-hr {
     color: rgb(219, 219, 219);
@@ -137,9 +140,6 @@
     color: rgb(26,121,255);
 }
 
-.landing-category:hover {
-    color: rgb(26,121,255);
-}
 
 .landing-business-review-container:hover .landing-business-name{
     color: rgb(26,121,255);

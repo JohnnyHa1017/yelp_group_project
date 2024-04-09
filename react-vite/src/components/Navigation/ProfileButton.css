@@ -1,16 +1,31 @@
 .toggledropdown{
     padding: 7px;
     color: white;
-    background-color: rgb(82, 134, 207);
+    background-color: #1A79FF;
     border-color: rgb(82, 134, 207);
     border-radius: 3px 3px;
+    cursor: pointer;
+    position: absolute;
+    top: 30%;
+    right: 1%;
+
+}
+
+
+.toggledropdown:hover{
+    filter: brightness(110%);
 }
 
 .dropdown-text{
     color:white;
 }
 
+/* .dropdown-text-login-btn{
+font-size: 15px;
+} */
+
 .profile-dropdown{
+    position: absolute;
     background-color: rgba(255, 255, 255, 0.92);
     padding: 20px;
     border-radius: 5px 5px;
@@ -18,9 +33,20 @@
     justify-content: center;
     align-items: center;
     padding: 15px;
-    right: 35px;
+    margin-top: 20px;
+    right:1%;
     z-index: 1;
 }
+
+.profile-dropdown li{
+    margin-top: 5px;
+}
+
+.profile-dropdown li:hover{
+cursor:pointer;
+color: #1A79FF;
+}
+
 .prof-btn-items{
     padding: 8px;
     display: flex;
@@ -36,4 +62,10 @@
     border-radius: 3px 3px;
     width: 100%;
     height: 30px;
+    cursor:pointer;
+}
+
+.logout-btn:hover{
+    filter: brightness(110%);
+
 }
