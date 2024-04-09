@@ -147,6 +147,19 @@ export const createReviewImageThunk = (reviewId, reviewImage) => async (dispatch
     return data
 }
 
+export const updateReviewImageThunk = (reviewImageId, updateImage) => async (dispatch) => {
+    const response = await fetch(`/api/reviews/${reviewImageId}/update/images`, {
+        method: 'PUT',
+        body: updateImage
+    })
+    if(!response.ok){
+        throw new Error('Failed to upload image.')
+    }
+    const data = await response.json()
+    dispatch(createReviewImage(data))
+    return data
+}
+
 //reducers
 function reviewReducer(state={}, action){
     switch(action.type){

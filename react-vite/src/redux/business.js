@@ -226,6 +226,19 @@ export const createBusinessImageThunk = (businessId, newImage) => async (dispatc
     return data
 }
 
+export const updateBusinessImageThunk = (businessImageId, updateImage) => async (dispatch) => {
+    const response = await fetch(`/api/business/${businessImageId}/edit/images`, {
+        method: 'PUT',
+        body: updateImage
+    })
+    if(!response.ok){
+        throw new Error('Failed to update new image.')
+    }
+    const data = await response.json()
+    dispatch(createBusinessImage(data))
+    return data
+}
+
 function businessReducer(state = {}, action) {
     switch (action.type) {
         case GET_ALL_DATA: {
