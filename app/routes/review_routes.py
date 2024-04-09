@@ -123,3 +123,11 @@ def update_review_images(id):
 
         return jsonify({'message': 'Image updated successfully'}), 200
     return jsonify({'errors': form.errors}), 400
+
+
+# DELETE Review Images
+# @bp.route('/<int:id>/delete/images', methods=['DELETE'])
+# @login_required
+# def delete_review_images(id):
+#     review_image = ReviewImage.query.get(id)
+
