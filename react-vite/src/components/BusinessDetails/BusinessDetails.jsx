@@ -29,6 +29,7 @@ export default function OneBusiness() {
   const currUser = useSelector(state => state.session)
   const { businessId } = useParams()
 
+
   const [deleteBus, setDeleteBus] = useState(false)
   const reRenderOnDelete = () => {
     setDeleteBus(!deleteBus)
@@ -41,7 +42,6 @@ export default function OneBusiness() {
   let hasUserLoggedIn = false
   let isOwner = false
   let businessPreviewImg = {}
-  let businessPreviewImgUrl = ''
   let businessCategory = ""
   let businessSchedule = ""
   let selectedBusiness = {}
@@ -152,12 +152,14 @@ export default function OneBusiness() {
     }
   }
 
+  const allBusinessImg = selectedBusiness?.businessImages?.filter(ele => ele.menu_id == null)
+  console.log('allBusinessImg ==>', allBusinessImg)
+
   //business background image
   if (selectedBusiness?.businessImages) {
     businessPreviewImg = selectedBusiness.businessImages[0].url
-    console.log('businessPreviewImg ==>', businessPreviewImg)
   } else {
-    businessPreviewImgUrl = default_business_background
+    businessPreviewImg = default_business_background
   }
 
   const throwAlter = () => {
@@ -177,7 +179,7 @@ export default function OneBusiness() {
             <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImg})`, height: '360px' }}>
               <h1 className="business-detail-header-text">{selectedBusiness?.title}</h1>
               <div className="bd-star-rating-container">
-                {reviews.Review && avgStarRating > 0 ? (
+                {reviews?.Review && avgStarRating > 0 ? (
                   <>
                     {[...Array(Math.floor(avgStarRating))].map((_, index) => (
                       <BiSolidGame key={index} className="bd-star" />
@@ -213,6 +215,13 @@ export default function OneBusiness() {
               </p>
             </div>
           </div>
+
+              <div className="business-detail-all-images-container">
+                {allBusinessImg?.length > 0 && allBusinessImg?.map(image => (
+                  <img className="business-dtl-s-images" src={image.url} />
+                ))}
+              </div>
+
           {hasUserLoggedIn &&
             <div className="business-detail-action-buttons-container">
               <button className="bd-red-action-buttons">

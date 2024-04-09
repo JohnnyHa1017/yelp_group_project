@@ -12,7 +12,8 @@
 }
 
 .business-detail-header-img {
-    width: 95%;
+    width: 90%;
+    min-width: 600px;
     height: 360px;
     padding: 16px;
     background-size: cover;
@@ -52,6 +53,22 @@
 .schedule-text {
     width: 35%;
     font-size: 12px;
+}
+
+.business-detail-all-images-container {
+    margin: 16px;
+    width: 90%;
+    max-width: 980px;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.business-dtl-s-images {
+    width: 120px;
+    object-fit: contain;
 }
 
 .business-detail-action-buttons-container {

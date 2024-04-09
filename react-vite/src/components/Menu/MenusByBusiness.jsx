@@ -31,7 +31,6 @@ function MenusByBusinessId() {
                 menu_images.push(img)
             }
         }
-        console.log('menu_images =>', menu_images)
         if (menus.length > 0) {
             appetizers = menus.filter(e => e.category == 'Appetizer')
             drinks = menus.filter(e => e.category == 'Drink')
