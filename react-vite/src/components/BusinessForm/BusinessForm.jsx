@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom'
-import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessThunk } from '../../redux/business'
+import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessImageThunk, updateBusinessThunk } from '../../redux/business'
 import './BusinessForm.css'
 
 const CreateNewBusiness = ({ buttonName, business }) => {
