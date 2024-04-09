@@ -122,14 +122,12 @@ export default function LandingPage() {
         }dedefauly
     }
 
-    console.log(allBusiness[0].businessImages[0].url, 'all businesses!!!')
     function prevImg(images){
-        console.log(images, 'images arr')
         const preview = images.filter(img => img.preview == true)
         if(!preview.length){
             return default_business_background
         }
-        return preview[0]?.url
+        return preview[0].url
     }
 
     return (
