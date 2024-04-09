@@ -5,6 +5,7 @@ export const CREATE_NEW_BUSINESS = 'business/CREATE_NEW_BUSINESS'
 export const UPDATE_BUSINESS = 'business/UPDATE_BUSINESS'
 export const DELETE_BUSINESS = 'business/DELETE_BUSINESS'
 export const CREATE_NEW_AMENITY = 'business/CREATE_AMENITY'
+export const CREATE_BUSINESS_IMAGE = 'busines/CREATE_IMAGE'
 
 // Action Types
 const getAllData = (data) => {
@@ -45,6 +46,13 @@ const deleteBusiness = (data) => {
 const createAmenity = (data) => {
     return {
         type: CREATE_NEW_AMENITY,
+        data
+    }
+}
+
+const createBusinessImage = (data) => {
+    return{
+        type: CREATE_BUSINESS_IMAGE,
         data
     }
 }
@@ -205,6 +213,19 @@ export const getBusinessImagesThunk = () => async(dispatch) => {
     return data
 }
 
+export const createBusinessImageThunk = (businessId, newImage) => async (dispatch) => {
+    const response = await fetch(`/api/business/${businessId}/images`, {
+        method: 'POST',
+        body: newImage
+    })
+    if(!response.ok){
+        throw new Error('Failed to create new image.')
+    }
+    const data = await response.json()
+    dispatch(createBusinessImage(data))
+    return data
+}
+
 function businessReducer(state = {}, action) {
     switch (action.type) {
         case GET_ALL_DATA: {
@@ -225,6 +246,9 @@ function businessReducer(state = {}, action) {
             return deleteState
         }
         case CREATE_NEW_AMENITY: {
+            return {...state, ...action.data}
+        }
+        case CREATE_BUSINESS_IMAGE:{
             return {...state, ...action.data}
         }
         default:

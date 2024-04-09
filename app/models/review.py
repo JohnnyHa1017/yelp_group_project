@@ -22,6 +22,10 @@ class Review(db.Model):
     businesses = relationship('Business', back_populates='reviews')
     review_images = relationship('ReviewImage', back_populates='reviews', cascade='all, delete-orphan')
 
+    @property
+    def review_img(self):
+        return [image.to_dict() for image in self.review_images]
+
     def to_dict(self):
         return {
         'id': self.id,
@@ -29,7 +33,7 @@ class Review(db.Model):
         'business_id': self.business_id,
         'review': self.review,
         'star': self.star,
-        # 'image_url': self.image_url,
         'createdAt': self.createdAt,
-        'updatedAt': self.updatedAt
+        'updatedAt': self.updatedAt,
+        'reviewImages': self.review_img
         }

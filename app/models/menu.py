@@ -19,6 +19,10 @@ class Menu(db.Model):
     businesses = relationship('Business', back_populates='menus')
     business_images = relationship('BusinessImage', back_populates='menus', cascade='all, delete-orphan')
 
+    # @property
+    # def menu_img(self):
+    #     return [image.to_dict for image in self.business_images]
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -26,6 +30,6 @@ class Menu(db.Model):
             'name': self.name,
             'category': self.category,
             'price': self.price,
-            'description': self.description
-            # 'image': self.image
+            'description': self.description,
+            # 'menuImages': self.menu_img
         }

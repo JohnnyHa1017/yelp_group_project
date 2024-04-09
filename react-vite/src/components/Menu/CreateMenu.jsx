@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createMenuThunk } from '../../redux/menu'
-import { specificBusinessThunk } from '../../redux/business'
+import { createBusinessImageThunk, specificBusinessThunk } from '../../redux/business'
 import './Menu.css'
 
 
@@ -28,6 +28,8 @@ function CreateMenu() {
     const [name, setName] = useState('')
     const [category, setCategory] = useState('')
     const [price, setPrice] = useState('')
+    const [image, setImage] = useState('')
+    const [imageLoading, setImageLoading] = useState(false)
     const [description, setDescription] = useState('')
     const [validations, setValidations] = useState('')
     const [submitted, setSubmitted] = useState(false)
@@ -69,7 +71,15 @@ function CreateMenu() {
             name, category, price, description
         }
         // if (!Object.keys(validations).length) {
-        await dispatch(createMenuThunk(businessId, newMenu))
+        const menu = await dispatch(createMenuThunk(businessId, newMenu))
+        const formData = new FormData();
+        formData.append('url', image)
+        formData.append('business_id', businessId)
+        formData.append('menu_id', menu.id)
+        formData.append('preview', false)
+
+        setImageLoading(true)
+        await dispatch(createBusinessImageThunk(businessId, formData))
         nav(`/business/${businessId}`)
         // }
     }
@@ -77,7 +87,11 @@ function CreateMenu() {
     return (
         <div className='create-menu-form-container'>
             <h1>Create Menu for {businessTitle}</h1>
-            <form onSubmit={handleSubmit} className='create-menu-form'>
+            <form
+                onSubmit={handleSubmit}
+                className='create-menu-form'
+                encType='multipart/form-data'
+            >
                 <label className='create-menu-label-container'>
                     <h3>Menu Item Name</h3>
                     <input
@@ -123,6 +137,15 @@ function CreateMenu() {
                     ></input>
                 </label>
                 {validations.description && (<p className='validation-messages'>{validations.description}</p>)}
+                <label>
+                    <input
+                        type='file'
+                        accept="image/*"
+                        onChange={(e) => setImage(e.target.files[0])}
+                    ></input>
+                </label>
+                {(imageLoading) && <p>Loading...</p>}
+                {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
                 <button className='amen-create-btn' type='submit' disabled={isValidated}>Create Menu</button>
             </form>
         </div>

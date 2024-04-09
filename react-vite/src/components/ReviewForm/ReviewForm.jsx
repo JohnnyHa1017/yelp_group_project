@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom'
-import { createReviewThunk } from '../../redux/reviews'
+import { createReviewImageThunk, createReviewThunk } from '../../redux/reviews'
 import { updateReviewThunk } from '../../redux/reviews'
 
 
@@ -33,9 +33,6 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const formData = new FormData();
-        formData.append("image", image);
-        setImageLoading(true);
         setSubmitted(true)
 
 
@@ -45,7 +42,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
             })
             return
         }
-        await Promise.resolve(formData);
+        // await Promise.resolve(formData);
 
         const reviewObj = {
             review, star, image
@@ -53,10 +50,15 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
         if (!reviewId) {
             console.log('CREATE REVIEW')
             const newReview = {
-                review, star, image
+                review, star
             }
             try {
-                await dispatch(createReviewThunk(businessId, newReview))
+                const newRev = await dispatch(createReviewThunk(businessId, newReview))
+                const formData = new FormData();
+                formData.append("url", image);
+                formData.append('review_id', newRev.id)
+                setImageLoading(true);
+                await dispatch(createReviewImageThunk(newRev.id, formData))
                 nav(`/business/${businessId}`);
             } catch (error) {
                 setValidations({ ...validations, message: 'Cannot add review' })
@@ -113,22 +115,15 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                     {(submitted && star < 1) && (
                         <p style={{ color: 'red' }}>You must select a star rating</p>
                     )}
-                    {/* <label>
-                        <div>
-
-                        </div>
-
-                        add an image btn/aws
+                    <label>
                         <input
                             type='file'
                             accept="image/*"
                             onChange={(e) => setImage(e.target.files[0])}
-                            placeholder='Add a Review Image'
-                        ></input> */}
-                    {/* <button onClick={() => alert('Feature coming soon')}>Choose File</button> */}
-                    {/* </label> */}
-                    {/* {submitted && validations.image && (<p style={{ color: 'red' }}>{validations.image}</p>)} */}
-
+                        ></input>
+                    </label>
+                    {(imageLoading) && <p>Loading...</p>}
+                    {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
                     <div className='Review-Btn-container'>
                         <button type='submit' className='Review-Submit-btn' >{buttonName}</button>
                         {/* {(imageLoading) && <p>Loading...</p>} */}

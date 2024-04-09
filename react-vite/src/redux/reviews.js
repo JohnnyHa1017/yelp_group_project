@@ -4,6 +4,7 @@ export const CREATE_REVIEW = 'business/CREATE_REVIEW'
 export const UPDATE_REVIEW = 'business/UPDATE_REVIEW'
 export const DELETE_REVIEW = 'business/DELETE_REVIEW'
 export const ALL_REVIEW = 'review/ALL'
+export const CREATE_REVIEW_IMAGE = '/review/CREATE_IMAGE'
 
 // Action Types
 const getAllReviews = (allReviews)=>{
@@ -42,6 +43,13 @@ const deleteReview = (reviewId)=>{
         reviewId
     }
 
+}
+
+const createReviewImage = (review) => {
+    return {
+        type: CREATE_REVIEW_IMAGE,
+        review
+    }
 }
 
 
@@ -126,6 +134,18 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
     }
 }
 
+export const createReviewImageThunk = (reviewId, reviewImage) => async (dispatch) => {
+    const response = await fetch(`/api/reviews/${reviewId}/images`, {
+        method: 'POST',
+        body: reviewImage
+    })
+    if(!response.ok){
+        throw new Error('Failed to upload image.')
+    }
+    const data = await response.json()
+    dispatch(createReviewImage(data))
+    return data
+}
 
 //reducers
 function reviewReducer(state={}, action){
@@ -147,6 +167,9 @@ function reviewReducer(state={}, action){
             const newState = { ...state }
             delete newState[action.reviewId]
             return newState
+        }
+        case CREATE_REVIEW_IMAGE: {
+            return {...state, ...action.review}
         }
         default:
             return state
