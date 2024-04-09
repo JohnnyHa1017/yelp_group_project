@@ -289,3 +289,30 @@ def update_business_images(id):
         return jsonify({'message': 'Image updated successfully'}), 200
     return jsonify({'errors': form.errors}), 400
 
+
+# DELETE Business Images
+@bp.route('/<int:id>/delete/images', methods=['DELETE'])
+@login_required
+def delete_business_images(id):
+    business_image = BusinessImage.query.get(id)
+
+    if not business_image:
+        return jsonify({'errors': 'Business image was not found'}), 404
+
+    if business_image.preview:
+        return jsonify({'errors': 'Cannot delete preview images'}), 400
+
+    business = Business.query.filter_by(id=business_image.business_id).first()
+
+    if not business:
+        return jsonify({'errors': 'Associated business was not found'}), 404
+
+    if business.owner_id != current_user.id:
+        return jsonify({'errors': 'You are not authorized to delete this business image.'}), 403
+
+    db.session.delete(business_image)
+    db.session.commit()
+
+    return jsonify({'message': 'Business image deleted successfully'}), 200
+
+
