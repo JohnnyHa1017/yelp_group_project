@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom'
-import { createNewBusinessThunk, updateBusinessThunk } from '../../redux/business'
+import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessImageThunk, updateBusinessThunk } from '../../redux/business'
 import './BusinessForm.css'
 
 const CreateNewBusiness = ({ buttonName, business }) => {
@@ -31,26 +31,10 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [category, setCategory] = useState(business?.category);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
-  console.log(allbusiness)
-  console.log(setImage)
-  // const [mondayopen, setMondayOpen] = useState('')
-  // const [mondayclose, setMondayClose]= useState('')
-  // const [tuesdayopen, setTuesdayOpen] = useState('')
-  // const [tuesdayclose, setTuesdayClose] = useState('')
-  // const [wednesdayopen, setWednesdayOpen] = useState('')
-  // const [wednesdayclose, setWednesdayClose] = useState('')
-  // const [thursdayopen, setThursdayOpen] = useState('')
-  // const [thursdayclose, setThursdayClose] = useState('')
-  // const [fridayopen, setFridayOpen] = useState('')
-  // const [fridayclose, setFridayClose] = useState('')
-  // const [saturdayopen, setSaturdayOpen] = useState('')
-  // const [saturdayclose, setSaturdayClose] = useState('')
-  // const [sundayopen, setSundayOpen] = useState('')
-  // const [sundayclose, setSundayClose] = useState('')
+  const [preview, setPreview] = useState(false)
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
-  console.log(submitted)
-  // console.log(setImage)
+
   let isValidated = false
 
   useEffect(() => {
@@ -122,18 +106,8 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-    const formData = new FormData();
-    formData.append("image", image);
 
-    // if (!Object.keys(validations).length) {
-    // let createSchedule = `Monday: ${mondayopen} - ${mondayclose},
-    //                       Tuesday: ${tuesdayopen} - ${tuesdayclose},
-    //                       Wednesday: ${wednesdayopen} - ${wednesdayclose},
-    //                       Thursday: ${thursdayopen} - ${thursdayclose},
-    //                       Friday: ${fridayopen} - ${fridayclose},
-    //                       Saturday: ${saturdayopen} - ${saturdayclose},
-    //                       Sunday: ${sundayclose} - ${sundayclose}
-    //                     `
+
     let createSchedule = ''
 
     let business = {
@@ -152,13 +126,17 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       // image
     };
 
-    await Promise.resolve(formData);
+    // await Promise.resolve(formData);
 
 
     if (!businessId) {
       const createBusiness = await dispatch(createNewBusinessThunk(business));
       if (createBusiness && createBusiness.id) {
-
+        const formData = new FormData();
+        formData.append("url", image);
+        formData.append('preview', preview)
+        formData.append('business_id', createBusiness.id)
+        await dispatch(createBusinessImageThunk(createBusiness.id, formData))
         setImageLoading(true);
         nav(`/business/${createBusiness.id}`);
       }
@@ -346,6 +324,15 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         ></textarea>
       </label>
       {validations.description && (<p className='validation-err-text'>{validations.description}</p>)}
+      <label>
+        <input
+            type='file'
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+        ></input>
+      </label>
+      {(imageLoading) && <p>Loading...</p>}
+      {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
       {/* <hr className='create-form-line'></hr>
       <h3 className="create-form-h3">Add your images</h3>
       <label>
@@ -356,9 +343,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           onChange={(e) => setImage(e.target.files[0])}
           placeholder='Add an Image'
         ></input>
-        {(imageLoading) && <p>Loading...</p>}
-      </label>
-      {validations.image && (<p className='validation-err-text'>{validations.image}</p>)} */}
+      </label> */}
       {/* <h2>Schedule</h2>
       <label>
         Monday : <br></br>

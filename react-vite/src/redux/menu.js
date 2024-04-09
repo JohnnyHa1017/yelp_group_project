@@ -3,7 +3,6 @@ export const GET_ALL_MENU = 'menu/GET_ALL_MENU'
 export const GET_MENU_BY_BUSINESS = 'menu/GET_MENU_BY_BUSINESS'
 export const CREATE_MENU = 'menu/CREATE_MENU'
 
-
 // Action Types
 const getAllMenu = (data) => {
     return {
@@ -23,7 +22,6 @@ const createMenu = (data) => {
         data
     }
 }
-
 
 // Thunk
 export const getAllMenusThunk = () => async (dispatch) => {

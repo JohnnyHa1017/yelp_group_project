@@ -28,13 +28,12 @@ export default function OneBusiness() {
   const menus = useSelector(state => state.menus)
   const currUser = useSelector(state => state.session)
   const { businessId } = useParams()
-  // console.log('menus ==>', menus)
 
   const [deleteBus, setDeleteBus] = useState(false)
   const reRenderOnDelete = () => {
     setDeleteBus(!deleteBus)
   }
-  
+
   //get average start rating
   let avgStarRating = 0
   let priceRating = 1
@@ -118,9 +117,7 @@ export default function OneBusiness() {
         amenities = eachAm
       }
     }
-    console.log('amenities ==>', amenities)
     for (const key in amenities) {
-      // if (amenities.hasOwnProperty(key)) {
         switch (key) {
           case 'accepts_credit_card': //to get each key
             isAccepts_cc = amenities[key] //assign boolean values
@@ -152,13 +149,13 @@ export default function OneBusiness() {
           default:
             break
         }
-      // }
     }
   }
+
   //business background image
-  if (menus?.Business_Images) {
-    businessPreviewImg = menus?.Business_Images.filter(img => img.business_id == businessId && img.preview == true)[0]
-    businessPreviewImgUrl = businessPreviewImg?.url
+  if (selectedBusiness?.businessImages) {
+    businessPreviewImg = selectedBusiness.businessImages[0].url
+    console.log('businessPreviewImg ==>', businessPreviewImg)
   } else {
     businessPreviewImgUrl = default_business_background
   }
@@ -169,9 +166,6 @@ export default function OneBusiness() {
 
   useEffect(() => {
     dispatch(specificBusinessThunk(businessId))
-    dispatch(menuByBusinessThunk(businessId))
-    dispatch(businessAmenitiesThunk(businessId))
-    dispatch(businessReviewThunk(businessId))
   }, [businessId, dispatch, Object.keys(menus).length])
 
 
@@ -180,8 +174,7 @@ export default function OneBusiness() {
       {business ? (
         <div className="business-detail-page-container">
           <div className="business-detail-header-container">
-            <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImgUrl})`, height: '360px' }}>
-              {/* <div className="business-detail-header-img" style={{ backgroundImage: `url(../../images/default_business_background.jpg)`, height: '360px' }}> */}
+            <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImg})`, height: '360px' }}>
               <h1 className="business-detail-header-text">{selectedBusiness?.title}</h1>
               <div className="bd-star-rating-container">
                 {reviews.Review && avgStarRating > 0 ? (
@@ -300,7 +293,7 @@ export default function OneBusiness() {
                 <BusinessReviews />
               </div>
             </div>
-            
+
             <div className="business-dtl-info-container">
               <div className="business-dtl-info-box">
                 <h2>Order Online</h2>

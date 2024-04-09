@@ -10,7 +10,7 @@ class ReviewImage(db.Model):
 
     id = Column(Integer, primary_key=True)
     review_id = Column(Integer, ForeignKey(add_prefix_for_prod('reviews.id')), nullable=False)
-    url = Column(String(2000))
+    url = Column(String)
 
     reviews = relationship('Review', back_populates='review_images')
 

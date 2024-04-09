@@ -14,13 +14,17 @@ class Review(db.Model):
     user_id = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     review = Column(String(2000), nullable=False)
     star = Column(Integer, nullable=False)
-    image = Column(String, nullable=True)
+    # image_url = Column(String)
     createdAt = db.Column(db.DateTime, default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     users = relationship('User', back_populates='reviews')
     businesses = relationship('Business', back_populates='reviews')
     review_images = relationship('ReviewImage', back_populates='reviews', cascade='all, delete-orphan')
+
+    @property
+    def review_img(self):
+        return [image.to_dict() for image in self.review_images]
 
     def to_dict(self):
         return {
@@ -29,7 +33,7 @@ class Review(db.Model):
         'business_id': self.business_id,
         'review': self.review,
         'star': self.star,
-        'image': self.image,
         'createdAt': self.createdAt,
-        'updatedAt': self.updatedAt
+        'updatedAt': self.updatedAt,
+        'reviewImages': self.review_img
         }

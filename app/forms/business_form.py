@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField
+from wtforms import StringField, IntegerField, SubmitField, SelectField, BooleanField
 from wtforms.validators import DataRequired, NumberRange, Length
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from app.routes.aws_helpers import ALLOWED_EXTENSIONS
-from app.models import Business
+from app.models import Business, business_images
 
 class CreateBusiness(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
@@ -13,6 +13,7 @@ class CreateBusiness(FlaskForm):
     country = StringField('Country', validators=[DataRequired()])
     lat = IntegerField('Lat')
     lng = IntegerField('Lng')
+    # image_url = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
     price_rating = IntegerField('Price Rating', validators=[DataRequired(), NumberRange(min=1, max=4, message='Price rating must be between 1 and 4')])
     category = StringField('Category', validators=[DataRequired()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=20)])
@@ -38,5 +39,6 @@ class ScheduleForm(FlaskForm):
 
 
 class BusinessImageForm(FlaskForm):
-    image = FileField("Image File", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
-    submit = SubmitField("Create Post")
+    url = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
+    preview = BooleanField("Preview")
+    menu_id = IntegerField("Menu ID")

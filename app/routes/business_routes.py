@@ -1,12 +1,12 @@
 from flask import Blueprint, jsonify, request, redirect
 from app.models import Business, Menu, Amenity, Review, ReviewImage, BusinessImage, db
 from app.forms.business_form import CreateBusiness
-from app.forms.menu_form import NewMenu, MenuImageForm
+from app.forms.menu_form import NewMenu
 from app.forms.amenities_form import CreateAmenities
 from app.forms.business_form import CreateBusiness, ScheduleForm, BusinessImageForm
-from app.forms.review_form import CreateReview, ReviewImageForm
+from app.forms.review_form import CreateReview
 from flask_login import login_required, current_user
-from .aws_helpers import upload_file_to_s3, remove_file_from_s3
+from .aws_helpers import get_unique_filename, upload_file_to_s3
 import json
 
 bp = Blueprint('business_routes', __name__, url_prefix='/api/business')
@@ -16,23 +16,6 @@ def get_all_business():
     all_businesses = Business.query.all()
     business_list = [business.to_dict() for business in all_businesses]
     return business_list
-
-
-# Helper function to upload image and get its URL
-def upload_image_url(image):
-    if not image:
-        return None
-    upload_result = upload_file_to_s3(image)
-    if "url" in upload_result:
-        return upload_result["url"]
-    return None
-
-
-# Helper function to remove image from AWS S3
-def remove_image(image_url):
-    if not image_url:
-        return
-    remove_file_from_s3(image_url)
 
 
 # GET all businesses
@@ -59,34 +42,24 @@ def one_business(id):
 
 
 # POST business
-    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
 @bp.route('/new', methods=['GET', 'POST'])
 @login_required
 def create_business():
     form = CreateBusiness()
-    schedule_form = ScheduleForm()
-    image_form = BusinessImageForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
+
     data = request.get_json()
     schedule = data.get('schedule')
 
-    if form.validate_on_submit():
-        if image_form.image.data:
-            image_url = upload_image_url(image_form.image.data)
-            if not image_url:
-                return jsonify({'error': 'Failed to upload image'}), 500
-        else:
-            image_url = None
+    if not form.validate_on_submit():
+        return jsonify({'error': form.errors}), 400
 
-        business = Business(owner_id=current_user.id, schedule=schedule, image=image_url)
+    business = Business(owner_id=current_user.id, schedule=schedule)
 
-        form.populate_obj(business)
-        db.session.add(business)
-        db.session.commit()
-
-        return jsonify(business.to_dict()), 201
-    return jsonify({'error': form.errors}), 400
+    form.populate_obj(business)
+    db.session.add(business)
+    db.session.commit()
+    return jsonify(business.to_dict()), 201
 
 
 # PUT business
@@ -102,22 +75,17 @@ def update_business(id):
     if business.owner_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
 
+
     form = CreateBusiness()
-    image_form = BusinessImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        if image_form.validate_on_submit():
-            if image_form.image.data:
-                if business.image:
-                    remove_image(business.image)
-                business.image = upload_image_url(image_form.image.data)
+    if not form.validate_on_submit():
+        return jsonify({'error': form.errors}), 400
 
-        form.populate_obj(business)
-        db.session.commit()
+    form.populate_obj(business)
+    db.session.commit()
 
-        return jsonify({'message': 'Business updated successfully'})
-    return jsonify({'error': form.errors}), 400
+    return jsonify({'message': 'Business updated successfully'})
 
 
 # DELETE business /:businessId/delete
@@ -156,25 +124,19 @@ def business_review(id):
 @login_required
 def create_review(id):
     form = CreateReview()
-    image_form = ReviewImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        if image_form.image.data:
-            image_url = upload_image_url(image_form.image.data)
-            if not image_url:
-                return jsonify({'error': 'Failed to upload image'}), 500
-        else:
-            image_url = None
+    params = {'business_id': id, 'user_id': current_user.id}
+    data = Review(**params)
+    form.populate_obj(data)
 
-        params = {'business_id': id, 'user_id': current_user.id, 'image': image_url}
-        data = Review(**params)
-        form.populate_obj(data)
-        db.session.add(data)
-        db.session.commit()
+    if not form.validate_on_submit():
+        return jsonify({'error': form.errors}), 400
 
-        return data.to_dict()
-    return jsonify({'error': form.errors}), 400
+    db.session.add(data)
+    db.session.commit()
+
+    return data.to_dict()
 
 
 # GET amenities /:businessId/amenity
@@ -232,22 +194,14 @@ def business_menu(id):
 
 
 # POST menu /:businessId/menu/new
-    # TODO: MADE A REVISION HERE, NEED TO CHECK AND TEST
 @bp.route('/<int:id>/menu/new', methods=['GET', 'POST'])
 @login_required
 def create_menu(id):
     form = NewMenu()
-    image_form = MenuImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        if image_form.image.data:
-            image_url = upload_image_url(image_form.image.data)
-            if not image_url:
-                return jsonify({'error': 'Failed to upload image'}), 500
-        else:
-            image_url = None
 
-        params = {'business_id': id, 'image': image_url}
+    if form.validate_on_submit():
+        params = {'business_id': id}
         data = Menu(**params)
         form.populate_obj(data)
         db.session.add(data)
@@ -262,3 +216,76 @@ def get_all_menus():
     all_menus = Menu.query.all()
     menu_list = [menu.to_dict() for menu in all_menus]
     return menu_list
+
+
+# POST Business Images (Business, Menu)
+@bp.route('/<int:id>/images', methods=['POST'])
+@login_required
+def post_business_images(id):
+    business = Business.query.get(id)
+
+    form = BusinessImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        image = form.data['url']
+        image_url = None
+
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+
+        if 'url' not in upload:
+            return jsonify({'errors': 'Failed to upload image'}), 400
+
+        image_url = upload['url']
+
+        business_image = BusinessImage(
+            business_id = business.id,
+            url = image_url,
+            preview = form.preview.data,
+            menu_id = form.menu_id.data
+        )
+
+        db.session.add(business_image)
+        db.session.commit()
+
+        return jsonify({'message': 'Image uploaded successfully'}), 200
+    return jsonify({'errors': form.errors}), 400
+
+
+# PUT Business Images
+@bp.route('/<int:id>/edit/images', methods=['PUT'])
+@login_required
+def update_business_images(id):
+    business_image = BusinessImage.query.get(id)
+    business = Business.query.filter(Business.id == business_image.business_id).first()
+
+
+    if not business_image:
+        return jsonify({'errors': 'Business image was not found'}), 404
+
+    if business.owner_id != current_user.id:
+        return jsonify({'errors': 'You are not authorized to edit this business image.'}), 403
+
+    form = BusinessImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate():
+        if 'url' in request.files:
+            update_request = request.files['url']
+            update_request.filename = get_unique_filename(update_request.filename)
+            upload = upload_file_to_s3(update_request)
+
+            if 'url' not in upload:
+                return jsonify({'errors': 'Failed to upload image'}), 400
+
+            business_image.url = upload['url']
+
+        business_image.preview = form.preview.data
+        business_image.menu_id = form.menu_id.data
+
+        db.session.commit()
+
+        return jsonify({'message': 'Image updated successfully'}), 200
+    return jsonify({'errors': form.errors}), 400
+

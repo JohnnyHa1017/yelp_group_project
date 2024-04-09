@@ -25,9 +25,6 @@ export default function LandingPage() {
     const reviewsArray = data.Review
 
 
-
-    // console.log('data=>', data.Business)
-
     useEffect(() => {
         dispatch(landingPageThunk())
     }, [dispatch])

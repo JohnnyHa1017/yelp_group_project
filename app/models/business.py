@@ -23,13 +23,17 @@ class Business(db.Model):
   phone_number = Column(String(25), nullable=False)
   description = Column(String(2000))
   schedule = Column(String(500), nullable=True)
-  image = Column(String(500), nullable=True)
+  # image_url = Column(String)
 
   users = relationship('User', back_populates='businesses')
   menus = relationship('Menu', back_populates='businesses', cascade='all, delete-orphan')
   amenities = relationship('Amenity', back_populates='businesses', cascade='all, delete-orphan')
   reviews = relationship('Review', back_populates='businesses', cascade='all, delete-orphan')
   business_images = relationship('BusinessImage', back_populates='businesses', cascade='all, delete-orphan')
+
+  @property
+  def business_img(self):
+    return[images.to_dict() for images in self.business_images]
 
   def to_dict(self):
     return {
@@ -47,5 +51,6 @@ class Business(db.Model):
       'phone_number': self.phone_number,
       'description': self.description,
       'schedule':self.schedule,
-      'image': self.image
+      'businessImages': self.business_img
+      # 'image_url': self.image_url
     }
