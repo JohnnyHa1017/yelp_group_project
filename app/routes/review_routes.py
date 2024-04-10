@@ -126,8 +126,25 @@ def update_review_images(id):
 
 
 # DELETE Review Images
-# @bp.route('/<int:id>/delete/images', methods=['DELETE'])
-# @login_required
-# def delete_review_images(id):
-#     review_image = ReviewImage.query.get(id)
+@bp.route('/<int:id>/delete/images', methods=['DELETE'])
+@login_required
+def delete_review_images(id):
+    review_image = ReviewImage.query.get(id)
+
+    if not review_image:
+        return jsonify({'errors': 'Review image was not found'}), 404
+
+    review = Review.query.filter_by(id=review_image.review_id).first()
+
+    if not review:
+        return jsonify({'errors': 'Associated review was not found'}), 404
+
+    if review.user_id != current_user.id:
+        return jsonify({'errors': 'You are not authorized to delete this review image.'}), 403
+
+    db.session.delete(review_image)
+    db.session.commit()
+
+    return jsonify({'message': 'Review image deleted successfully'}), 200
+
 
