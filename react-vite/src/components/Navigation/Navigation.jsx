@@ -18,8 +18,8 @@ function Navigation() {
             <img src={landinglogo} alt='landinglogo'/>
           </NavLink>
         </li>
-        <li>
-          <SearchBar className='search-component'/>
+        <li className='search-component'>
+          <SearchBar/>
         </li>
         {user && (
           <div className='nav-btn-container'>

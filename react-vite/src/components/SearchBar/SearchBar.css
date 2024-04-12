@@ -1,6 +1,6 @@
 .input-wrapper{
     background-color:white;
-    width:100%;
+    width:90%;
     height:2rem;
     padding: 0 15px;
     box-shadow: 0px 0px 8px gray;
@@ -13,8 +13,8 @@
     border: none;
     height: 100%;
     font-size: 1rem;
-    width:500px;
-    /* width: 100%; */
+    /* width:500px; */
+    width: 95%;
     margin-left: 3px;
 }
 
