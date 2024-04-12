@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { businessReviewThunk } from '../../redux/reviews'
 import { landingPageThunk } from '../../redux/business'
 import { NavLink } from 'react-router-dom'
-
+import { MdOutlineStarPurple500 } from "react-icons/md";
+import { MdOutlineStarOutline } from "react-icons/md";
 import './BusinessReviews.css'
 
 function BusinessReviews() {
     const { businessId } = useParams()
     const dispatch = useDispatch()
     const reviews = useSelector((state) => state.reviews.Review)
-    const reviewImages = useSelector((state) => state.reviews.ReviewImage)
     const currUser = useSelector((state) => state.session.user)
     const users = useSelector((state) => state.business.Users)
 
@@ -39,9 +39,9 @@ function BusinessReviews() {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
             if (i <= starValue) {
-                stars.push(<span key={i} className="star-filled">★</span>);
+                stars.push(<span key={i} className="star-filled"><MdOutlineStarPurple500 className='star-icons'/></span>);
             } else {
-                stars.push(<span key={i} className="star-empty">☆</span>);
+                stars.push(<span key={i} className="star-empty"><MdOutlineStarOutline className='star-icons'/></span>);
             }
         }
         return stars
@@ -65,10 +65,9 @@ function BusinessReviews() {
                             <p>{renderStars(review.star)}</p> <p>{formatDate(review.createdAt)}</p>
                         </div>
                         <p className="BR-Review_desc">{review.review}</p>
-                        {/* {reviewImages?.find((image) => image.review_id === review.id) && (
-                            <img src={reviewImages.find((image) => image.review_id === review.id).url} alt="Review Image" />
-                        )} */}
-                        {/* <hr /> */}
+                        {review?.reviewImages?.length > 0 && (
+                            <img className='review-img' src={review.reviewImages[0].url}/>
+                        )}
                     </div>
                 ))
             ) : (

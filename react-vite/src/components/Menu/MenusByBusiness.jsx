@@ -14,7 +14,7 @@ function MenusByBusinessId() {
     const menuImages = useSelector((state) => state.menus.Business_Images)
     const business = useSelector((state) => state.business[businessId])
 
-    
+
     // console.log('menus ==>', menus)
     let menus = []
     let menu_images = []
@@ -31,7 +31,7 @@ function MenusByBusinessId() {
                 menu_images.push(img)
             }
         }
-        console.log('menu_images =>', menu_images)
+        // console.log('menu_images =>', menu_images)
         if (menus.length > 0) {
             appetizers = menus.filter(e => e.category == 'Appetizer')
             drinks = menus.filter(e => e.category == 'Drink')
@@ -53,6 +53,7 @@ function MenusByBusinessId() {
                     <h1 className='menu-detail-text-black'>{business?.title}&apos;s Menu</h1>
                     <div className='menu-type-container'>
                         <h2>Appetizer</h2>
+                        <hr></hr>
                         <div className='menu-page-all-items-container'>
                             {appetizers.length > 0 && appetizers.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
@@ -61,7 +62,7 @@ function MenusByBusinessId() {
                                         <h3>{menu?.name}</h3>
                                         <p>{menu?.description}</p>
                                         <p className='menu-detail-text'>{menu?.price} $</p>
-                                        {matchedImage && 
+                                        {matchedImage &&
                                             <img className='menu-item-img' src={matchedImage?.url} alt={`Image for ${menu.menu_name}`} />
                                         }
                                     </div>
@@ -71,6 +72,7 @@ function MenusByBusinessId() {
                     </div>
                     <div className='menu-type-container'>
                         <h2>Drinks</h2>
+                        <hr></hr>
                         <div className='menu-page-all-items-container'>
                             {drinks.length > 0 && drinks.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
@@ -89,6 +91,7 @@ function MenusByBusinessId() {
                     </div>
                     <div className='menu-type-container'>
                         <h2>Entree</h2>
+                        <hr></hr>
                         <div className='menu-page-all-items-container'>
                             {entrees.length > 0 && entrees.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
@@ -107,6 +110,7 @@ function MenusByBusinessId() {
                     </div>
                     <div className='menu-type-container'>
                         <h2>Dessert</h2>
+                        <hr></hr>
                         <div className='menu-page-all-items-container'>
                             {desserts.length > 0 && desserts.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
@@ -125,6 +129,7 @@ function MenusByBusinessId() {
                     </div>
                     <div className='menu-type-container'>
                         <h2>Specials</h2>
+                        <hr></hr>
                         <div className='menu-page-all-items-container'>
                             {specials.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);

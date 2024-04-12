@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { businessAmenitiesThunk, specificBusinessThunk } from '../../redux/business'
-import { menuByBusinessThunk } from '../../redux/menu'
+import { specificBusinessThunk } from '../../redux/business'
 import { NavLink, useParams } from 'react-router-dom'
-import { businessReviewThunk } from "../../redux/reviews";
 import './BusinessDetails.css'
 import BusinessReviews from "../BusinessReviews/BusinessReviews";
 import MenusByBusinessId from "../Menu/MenusByBusiness";
@@ -41,7 +39,7 @@ export default function OneBusiness() {
   let hasUserLoggedIn = false
   let isOwner = false
   let businessPreviewImg = {}
-  let businessPreviewImgUrl = ''
+  // let businessPreviewImgUrl = ''
   let businessCategory = ""
   let businessSchedule = ""
   let selectedBusiness = {}
@@ -154,10 +152,10 @@ export default function OneBusiness() {
 
   //business background image
   if (selectedBusiness?.businessImages) {
-    businessPreviewImg = selectedBusiness.businessImages[0].url
-    console.log('businessPreviewImg ==>', businessPreviewImg)
+    businessPreviewImg = selectedBusiness?.businessImages[0]?.url
+    // console.log('businessPreviewImg ==>', businessPreviewImg)
   } else {
-    businessPreviewImgUrl = default_business_background
+    businessPreviewImg = default_business_background
   }
 
   const throwAlter = () => {
@@ -168,6 +166,21 @@ export default function OneBusiness() {
     dispatch(specificBusinessThunk(businessId))
   }, [businessId, dispatch, Object.keys(menus).length])
 
+  function formatSchedule(schedule){
+    // console.log(schedule.split(','), 'schedule')
+    let day = schedule.split(',')
+    return (
+      <div className='schedule-container'>
+        <p>{day[0]}</p>
+        <p>{day[1]}</p>
+        <p>{day[2]}</p>
+        <p>{day[3]}</p>
+        <p>{day[4]}</p>
+        <p>{day[5]}</p>
+        <p>{day[6]}</p>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -246,45 +259,46 @@ export default function OneBusiness() {
                 {businessSchedule &&
                   <>
                     <h2>Schedule</h2>
-                    {businessSchedule}
+                    {formatSchedule(businessSchedule)}
                   </>}
+                  <hr></hr>
                 <h2>Amenities</h2>
                 <div className="business-detail-amenity-container">
                   <div className="amenity-blocks">
                     <p>Accepts Credit Card</p>
-                    {isAccepts_cc ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isAccepts_cc ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Delivery</p>
-                    {isDelivery ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isDelivery ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Pickup</p>
-                    {isPickup ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isPickup ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Reservation</p>
-                    {isReservation ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isReservation ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Street Parking</p>
-                    {isSP ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isSP ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Free Wi-Fi</p>
-                    {isFreeWF ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isFreeWF ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Good for Groups</p>
-                    {isGoodGroup ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isGoodGroup ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Out Door Seating</p>
-                    {isOutdoor ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isOutdoor ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                   <div className="amenity-blocks">
                     <p>Vegetarian</p>
-                    {isVegetarian ? (<IoCheckmarkCircle className="amenity-tags" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
+                    {isVegetarian ? (<IoCheckmarkCircle className="amenity-tags has-amen" />) : (<IoCheckmarkCircleOutline className="amenity-tags" />)}
                   </div>
                 </div>
               </div>
