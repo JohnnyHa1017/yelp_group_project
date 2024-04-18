@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { landingPageThunk } from "../../redux/business";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 

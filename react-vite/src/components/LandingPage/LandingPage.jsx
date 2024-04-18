@@ -2,12 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { landingPageThunk } from '../../redux/business'
 import { NavLink } from 'react-router-dom';
-// import { useModal } from "../../context/Modal";
-// import { landingPageThunk } from '../../redux/business'
-// import { SignupFormModal } from '../SignupFormModal'
-// import { LoginFormModal } from '../LoginFormModal'
-// import { OpenModalButton } from '../OpenModalButton'
-// import { ProfileButton } from '../Navigation'
 import ImageCarousel from "../Carousel/Carousel";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 import { formatDistanceToNow } from 'date-fns';
@@ -40,9 +34,6 @@ export default function LandingPage() {
 
     const allBusiness = Object.values(data.Business)
 
-    // console.log('@@@@@=>', allBusiness)
-    // console.log('sixereviews', sixreviews)
-    // Helper func: Business avg star rating by id
     function businessAvgRating(businessId) {
         let avgRating = 0
         let numRev = 0
@@ -75,12 +66,6 @@ export default function LandingPage() {
         }
         return stars
     }
-    //formatdates
-    // function formatDate(date) {
-    //     const newDate = new Date(date)
-    //     const options = { month: 'long', day: 'numeric', year: 'numeric' }
-    //     return newDate.toLocaleDateString(undefined, options)
-    // }
 
     //X minutes ago (package)
     function formatTimeAgo(date) {
@@ -119,7 +104,7 @@ export default function LandingPage() {
                 );
             default:
                 return null;
-        }dedefauly
+        }
     }
 
     function prevImg(images){
