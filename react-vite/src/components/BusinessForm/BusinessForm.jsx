@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom'
-import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessImageThunk, updateBusinessThunk } from '../../redux/business'
+import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessThunk } from '../../redux/business'
 import './BusinessForm.css'
 
 const CreateNewBusiness = ({ buttonName, business }) => {
   const dispatch = useDispatch()
   const nav = useNavigate()
   const user = useSelector((state) => state.session.user)
-  const allbusiness = useSelector((state) => state.business)
   const { businessId } = useParams()
 
   let exisiting_price_rating = ''

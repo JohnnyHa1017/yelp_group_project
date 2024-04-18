@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { businessAmenitiesThunk, specificBusinessThunk } from '../../redux/business'
-import { menuByBusinessThunk } from '../../redux/menu'
+import { specificBusinessThunk } from '../../redux/business'
 import { NavLink, useParams } from 'react-router-dom'
-import { businessReviewThunk } from "../../redux/reviews";
 import './BusinessDetails.css'
 import BusinessReviews from "../BusinessReviews/BusinessReviews";
 import MenusByBusinessId from "../Menu/MenusByBusiness";
@@ -218,7 +216,7 @@ export default function OneBusiness() {
 
               <div className="business-detail-all-images-container">
                 {allBusinessImg?.length > 0 && allBusinessImg?.map(image => (
-                  <img className="business-dtl-s-images" src={image.url} />
+                  <img className="business-dtl-s-images" key={image.id} src={image.url} />
                 ))}
               </div>
 
@@ -337,11 +335,6 @@ export default function OneBusiness() {
                       Add Menu Item
                     </NavLink>
                   </button>
-                  {/* <button className="bd-red-action-buttons">
-                    <NavLink className='red-button-text' to={`/business/${businessId}/amenities`}>
-                      Add Amenity
-                    </NavLink>
-                  </button> */}
                   <button className="bd-red-action-buttons">
                     <NavLink className='red-button-text' to={`/business/${businessId}/edit`}>
                       Edit My Business

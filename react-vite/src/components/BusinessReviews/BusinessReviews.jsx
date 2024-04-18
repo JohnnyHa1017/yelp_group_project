@@ -11,7 +11,6 @@ function BusinessReviews() {
     const { businessId } = useParams()
     const dispatch = useDispatch()
     const reviews = useSelector((state) => state.reviews.Review)
-    const reviewImages = useSelector((state) => state.reviews.ReviewImage)
     const currUser = useSelector((state) => state.session.user)
     const users = useSelector((state) => state.business.Users)
 
