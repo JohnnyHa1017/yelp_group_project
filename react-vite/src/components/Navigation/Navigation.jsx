@@ -18,19 +18,18 @@ function Navigation() {
             <img src={landinglogo} alt='landinglogo'/>
           </NavLink>
         </li>
-
-        <li>
+        <li className='search-component'>
           <SearchBar/>
         </li>
         {user && (
-          <>
+          <div className='nav-btn-container'>
             <li>
               <NavLink to='/business/new'className='Nav-btn'>Create a New Business</NavLink>
             </li>
             <li >
               <NavLink to={`/user/${user.id}/business`} className='Nav-btn'>Manage Your Business</NavLink>
             </li>
-          </>
+          </div>
           )
         }
         <li>

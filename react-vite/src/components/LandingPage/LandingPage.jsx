@@ -115,11 +115,15 @@ export default function LandingPage() {
         return preview[0].url
     }
 
+    for(let rev of sixreviews){
+        console.log(rev.reviewImages, 'review in 6 revies')
+    }
+
     return (
         <>
             <div style={{ marginBottom: '500px' }}>
                 <div className='carousel-container'>
-                    <ImageCarousel />
+                    <ImageCarousel className='img-carousel'/>
                 </div>
             </div>
             <div>
