@@ -50,6 +50,7 @@
     padding: 8px;
     width: 43%;
     min-width: 180px;
+    background-color: rgb(245, 245, 245);
 }
 
 .menu-detail-text {
@@ -61,8 +62,16 @@
     color: black;
 }
 
+.menu-img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+}
+
 .menu-item-img {
     width: 50%;
+    border-radius: 5px;
 }
 
 .create-menu-form-container {

@@ -85,7 +85,7 @@ export const specificBusinessThunk = (businessId) => async (dispatch) => {
 
     const one_data = await response.json()
 
-    console.log("ONE_DATA IN SPECIFIC BUSINESS THUNK", one_data)
+    // console.log("ONE_DATA IN SPECIFIC BUSINESS THUNK", one_data)
     // !: THIS IS AN OBJECT OF TWO OBJECTS NAMED 'Business', 'Business_Images'
     // ?: THIS HOLDS OBJECT BUSINESS {  DETAILS  }
     // ?: AS WELL AS OBJECT BUSINESS_IMAGES NESTING AN ARRAY OF [{  IMAGES_DETAILS  }]

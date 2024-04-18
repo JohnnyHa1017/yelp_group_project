@@ -5,7 +5,8 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start ;
+    justify-content: flex-start;
+    background-color: rgb(245, 245, 245);
 }
 
 .name-and-buttons {
@@ -53,4 +54,14 @@
 
 .Business-review-del-btns:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.review-img{
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.star-icons{
+    color: rgb(26, 121, 255);
 }
