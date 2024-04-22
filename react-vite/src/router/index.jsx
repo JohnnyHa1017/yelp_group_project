@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'business/:businessId/reviews',
-        element: <BusinessReviews/>
+        element: <BusinessReviews isFullPage={true}/>
       },
       {
         path: 'business/:businessId/review/new',

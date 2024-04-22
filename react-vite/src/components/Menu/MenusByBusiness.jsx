@@ -12,7 +12,6 @@ function MenusByBusinessId({isFullPage}) {
     const menuImages = useSelector((state) => state.menus.Business_Images)
     const business = useSelector((state) => state.business[businessId])
 
-    console.log('isFullPage ==>', isFullPage)
 
     let menus = []
     let menu_images = []
@@ -46,7 +45,7 @@ function MenusByBusinessId({isFullPage}) {
     return (
         <section>
             {business ? (
-                <div className={`menu-page-container-${isFullPage ? 'full' : ''}`}>
+                <div className={`menu-page-container ${isFullPage ? 'full' : ''}`}>
                     <h1 className='menu-detail-text-black'>{business?.title}&apos;s Menu</h1>
                     {appetizers.length > 0 && <div className='menu-type-container'>
                         <h2>Appetizer</h2>
