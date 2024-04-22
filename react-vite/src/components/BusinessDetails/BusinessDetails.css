@@ -63,6 +63,13 @@
     padding: 16px;
 }
 
+@media (max-width: 650px) {
+    .business-detail-action-buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 .business-detail-context-container {
     /* border: 1px blue solid; */
     display: flex;
