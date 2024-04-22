@@ -375,7 +375,7 @@ export default function OneBusiness() {
                       Edit My Business
                     </NavLink>
                   </button>
-                  <button className="bd-red-action-buttons">
+                  <button className="bd-red-action-buttons dtl-page-delete-btn">
                     <OpenModalMenuItem className='red-button-text'
                       itemText='Delete Business'
                       modalComponent={<DeleteBusiness businessId={businessId} reRenderOnDelete={reRenderOnDelete} />}

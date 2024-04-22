@@ -191,6 +191,10 @@
     border: 1px solid rgb(26, 121, 255);
 }
 
+.dtl-page-delete-btn:hover {
+    cursor: pointer;
+}
+
 .bd-blue-action-buttons {
     width: 120px;
     height: 35px;
