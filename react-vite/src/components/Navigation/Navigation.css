@@ -1,7 +1,7 @@
 
 .nav-bar-ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   list-style-type: none;
   align-items: center;
   z-index: 2;
@@ -29,22 +29,20 @@
 .Nav-btn {
   text-decoration: none;
   color: white;
-  background: linear-gradient(to right, rgb(82, 134, 207), rgb(26,121,255)
-  );
   animation: moveGradient 5s linear infinite;
   padding: 8px 16px;
   border-radius: 4px;
   transition: background-color 0.5s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
 }
 
 .Nav-btn:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); */
+  background-color: rgba(255, 255, 255, 0.50);
 }
 
 .background-shadow{
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.60) 75%, rgba(0, 0, 0, 0) 100%);
   position: absolute;
   z-index: 1;
   top: 0;
@@ -62,10 +60,6 @@
 }
 
 @media (max-width: 1120px) {
-  .nav-bar-ul{
-    display: flex;
-    flex-direction: column;
-  }
   .landing-category-container{
     display: flex;
     flex-direction: row;
@@ -96,4 +90,42 @@
   .profile-dropdown{
     top:30px;
   }
+}
+
+@media (max-width: 675px) {
+  .nav-btn-container{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin:0;
+  }
+  .nav-btn{
+    margin-bottom: 10px;
+  }
+}
+
+.nav-login-btn{
+  color: white;
+  border: 1px solid white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.nav-login-btn:hover{
+  background-color: rgba(255, 255, 255, 0.50);
+}
+
+.nav-signup-btn{
+  color: white;
+  border: 1px solid rgb(26,121,255);
+  padding: 8px 12px;
+  border-radius: 5px;
+  background-color: rgb(26,121,255);
+  cursor: pointer;
+}
+
+.logged-btns{
+  display: flex;
 }
