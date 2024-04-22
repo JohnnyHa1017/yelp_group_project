@@ -3,18 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { menuByBusinessThunk } from '../../redux/menu'
 import { specificBusinessThunk } from '../../redux/business'
+import Loading from '../Loading/Loading'
 
-// TODO: @TylerHan1226 WE NEED TO CHECK UP ON THIS
-// TODO: ADD MENU IMAGES
-
-function MenusByBusinessId() {
+function MenusByBusinessId({isFullPage}) {
     const dispatch = useDispatch()
     const { businessId } = useParams()
     const stateMenus = useSelector((state) => state.menus.Menu)
     const menuImages = useSelector((state) => state.menus.Business_Images)
     const business = useSelector((state) => state.business[businessId])
 
-    // console.log('menus ==>', menus)
+    console.log('isFullPage ==>', isFullPage)
+
     let menus = []
     let menu_images = []
     let appetizers = []
@@ -30,7 +29,6 @@ function MenusByBusinessId() {
                 menu_images.push(img)
             }
         }
-        // console.log('menu_images =>', menu_images)
         if (menus.length > 0) {
             appetizers = menus.filter(e => e.category == 'Appetizer')
             drinks = menus.filter(e => e.category == 'Drink')
@@ -46,9 +44,9 @@ function MenusByBusinessId() {
     }, [dispatch, businessId])
 
     return (
-        <>
-            {business ? ( // Added null check here
-                <div className='menu-page-container'>
+        <section>
+            {business ? (
+                <div className={`menu-page-container-${isFullPage ? 'full' : ''}`}>
                     <h1 className='menu-detail-text-black'>{business?.title}&apos;s Menu</h1>
                     {appetizers.length > 0 && <div className='menu-type-container'>
                         <h2>Appetizer</h2>
@@ -145,18 +143,19 @@ function MenusByBusinessId() {
                             })}
                         </div>
                     </div>}
-                    <div id='menu-page-button-container'>
-                        <button className="bd-blue-action-buttons">
-                            <NavLink className='red-button-text' to={`/business/${businessId}`}>
-                                Back
-                            </NavLink>
-                        </button>
-                    </div>
+                    {isFullPage &&
+                        <div className='menu-page-button-container'>
+                            <button className="bd-blue-action-buttons">
+                                <NavLink className='red-button-text' to={`/business/${businessId}`}>
+                                    Back
+                                </NavLink>
+                            </button>
+                        </div>}
                 </div>
             ) : (
-                <p>no menu yet</p> // Render a message if no images
+                <Loading />
             )}
-        </>
+        </section>
     )
 }
 

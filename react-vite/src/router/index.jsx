@@ -74,7 +74,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'business/:businessId/menus',
-        element: <MenusByBusinessId />
+        element: <MenusByBusinessId isFullPage={true} />
       },
       {
         path: 'business/:businessId/menus/new',
