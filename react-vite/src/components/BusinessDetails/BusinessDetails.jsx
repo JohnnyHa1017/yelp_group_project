@@ -7,6 +7,7 @@ import BusinessReviews from "../BusinessReviews/BusinessReviews";
 import MenusByBusinessId from "../Menu/MenusByBusiness";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteBusiness from "../DeleteBusiness/DeleteBusiness";
+import Loading from "../Loading/Loading";
 
 import default_business_background from '../../images/default_business_background.jpg'
 import { PiBowlFoodFill } from "react-icons/pi";
@@ -189,7 +190,7 @@ export default function OneBusiness() {
 
   return (
     <>
-      {business ? (
+      {selectedBusiness ? (
         <div className="business-detail-page-container">
           <div className="business-detail-header-container">
             <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImg})`, height: '360px' }}>
@@ -355,6 +356,11 @@ export default function OneBusiness() {
                     </NavLink>
                   </button>
                   <button className="bd-red-action-buttons">
+                    <NavLink className='red-button-text' to={`/business/${businessId}/amenities`}>
+                      Add Amenity
+                    </NavLink>
+                  </button>
+                  <button className="bd-red-action-buttons">
                     <NavLink className='red-button-text' to={`/business/${businessId}/edit`}>
                       Edit My Business
                     </NavLink>
@@ -371,7 +377,7 @@ export default function OneBusiness() {
           </div>
         </div>
       ) : (
-        <h2>Loading ...</h2>
+          <Loading />
       )}
     </>
   )

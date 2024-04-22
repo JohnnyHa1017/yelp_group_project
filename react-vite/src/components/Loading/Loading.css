@@ -1,0 +1,38 @@
+.loading {
+    display: flex;
+    flex-direction: column;
+}
+
+.loader {
+    width: 50%;
+    height: 22px;
+    border-radius: 40px;
+    color: var(--option-background);
+    border: 2px solid;
+    position: relative;
+    overflow: hidden;
+    align-self: center;
+}
+
+.loader::before {
+    content: "";
+    position: absolute;
+    margin: 2px;
+    width: 14px;
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    border-radius: inherit;
+    background: rgb(26,121,255);
+    box-shadow: -10px 0 12px 3px rgb(26,121,255);
+    animation: fillBar 1s linear forwards;
+}
+
+@keyframes fillBar {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
