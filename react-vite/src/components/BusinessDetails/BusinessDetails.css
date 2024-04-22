@@ -239,6 +239,9 @@
     width: 100%;
     height: auto;
 }
+.business-dtl-s-images:hover {
+    cursor: pointer;
+}
 
 .big-image-container {
     display: flex;

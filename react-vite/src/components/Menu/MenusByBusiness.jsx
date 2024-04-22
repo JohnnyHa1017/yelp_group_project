@@ -14,7 +14,6 @@ function MenusByBusinessId() {
     const menuImages = useSelector((state) => state.menus.Business_Images)
     const business = useSelector((state) => state.business[businessId])
 
-
     // console.log('menus ==>', menus)
     let menus = []
     let menu_images = []
@@ -51,11 +50,11 @@ function MenusByBusinessId() {
             {business ? ( // Added null check here
                 <div className='menu-page-container'>
                     <h1 className='menu-detail-text-black'>{business?.title}&apos;s Menu</h1>
-                    <div className='menu-type-container'>
+                    {appetizers.length > 0 && <div className='menu-type-container'>
                         <h2>Appetizer</h2>
                         <hr></hr>
                         <div className='menu-page-all-items-container'>
-                            {appetizers.length > 0 && appetizers.map((menu, index) => {
+                            {appetizers.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
                                 return (
                                     <div className='menu-item-container' key={index}>
@@ -69,12 +68,12 @@ function MenusByBusinessId() {
                                 )
                             })}
                         </div>
-                    </div>
-                    <div className='menu-type-container'>
+                    </div>}
+                    {drinks.length > 0 &&  <div className='menu-type-container'>
                         <h2>Drinks</h2>
                         <hr></hr>
                         <div className='menu-page-all-items-container'>
-                            {drinks.length > 0 && drinks.map((menu, index) => {
+                            {drinks.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
                                 return (
                                     <div className='menu-item-container' key={index}>
@@ -88,12 +87,12 @@ function MenusByBusinessId() {
                                 )
                             })}
                         </div>
-                    </div>
-                    <div className='menu-type-container'>
+                    </div>}
+                    {entrees.length > 0 && <div className='menu-type-container'>
                         <h2>Entree</h2>
                         <hr></hr>
                         <div className='menu-page-all-items-container'>
-                            {entrees.length > 0 && entrees.map((menu, index) => {
+                            {entrees.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
                                 return (
                                     <div className='menu-item-container' key={index}>
@@ -107,12 +106,12 @@ function MenusByBusinessId() {
                                 )
                             })}
                         </div>
-                    </div>
-                    <div className='menu-type-container'>
+                    </div>}
+                    {desserts.length > 0 && <div className='menu-type-container'>
                         <h2>Dessert</h2>
                         <hr></hr>
                         <div className='menu-page-all-items-container'>
-                            {desserts.length > 0 && desserts.map((menu, index) => {
+                            {desserts.map((menu, index) => {
                                 const matchedImage = menu_images?.find(image => image.menu_id === menu.id);
                                 return (
                                     <div className='menu-item-container' key={index}>
@@ -126,8 +125,8 @@ function MenusByBusinessId() {
                                 )
                             })}
                         </div>
-                    </div>
-                    <div className='menu-type-container'>
+                    </div>}
+                    {specials.length > 0 && <div className='menu-type-container'>
                         <h2>Specials</h2>
                         <hr></hr>
                         <div className='menu-page-all-items-container'>
@@ -145,7 +144,7 @@ function MenusByBusinessId() {
                                 )
                             })}
                         </div>
-                    </div>
+                    </div>}
                     <div id='menu-page-button-container'>
                         <button className="bd-blue-action-buttons">
                             <NavLink className='red-button-text' to={`/business/${businessId}`}>
