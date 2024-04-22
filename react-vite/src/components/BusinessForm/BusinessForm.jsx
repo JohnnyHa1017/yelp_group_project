@@ -870,7 +870,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         </datalist>
       </label> */}
       <div className="bzns-submit-container">
-      <button id='submit-button' type='submit' disabled={isValidated}>{buttonName}</button>
+      <button className="bzns-submit-btn" id='submit-button' type='submit' disabled={isValidated}>{buttonName}</button>
       {(imageLoading) && <p>Loading...</p>}
       </div>
     </form>

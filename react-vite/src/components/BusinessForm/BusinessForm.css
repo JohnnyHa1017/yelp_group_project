@@ -94,38 +94,14 @@ h1 {
   color: #999999;
 }
 
-
-.business-form #submit-button {
-  font-family: "Spectral SC", serif;
-  margin-top: 10px;
-}
-
 .bzns-submit-container{
   display: flex;
   justify-content: center;
   margin-top: 3%;
 }
 
-.business-form button[type="submit"] {
-  display: block;
-  color: black;
-  padding: 10px 20px;
-  Border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  background-color: rgb(26, 121, 255);
-}
-
-/* Hover effect on the submit button */
-.business-form button[type="submit"]:hover {
-  background-color: rgb(26, 121, 255);
-  color: white;
-  filter: brightness(110%);
-}
-
 .validation-err-text {
-  color: rgb(175, 17, 17);
+  color: red;
   font-size: 15px;
   font-family: Baskerville;
   margin-top: 5px;
@@ -143,4 +119,23 @@ h1 {
 .business-form-file{
   color: black;
   font-style: italic;
+}
+
+.bzns-submit-btn{
+  display: block;
+  color: black;
+  padding: 10px 20px;
+  Border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: rgb(26, 121, 255);
+  font-family: "Spectral SC", serif;
+  margin-top: 10px;
+}
+
+.bzns-submit-btn:hover{
+  background-color: rgb(26, 121, 255);
+  color: white;
+  filter: brightness(110%);
 }

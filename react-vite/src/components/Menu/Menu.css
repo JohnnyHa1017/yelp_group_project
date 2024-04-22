@@ -1,7 +1,3 @@
-.validation-messages {
-    color: red;
-}
-
 .menu-page-container {
     /* border: red 1px solid; */
     display: flex;
@@ -42,7 +38,6 @@
     color: rgb(175, 17, 17);
 }
 
-
 .menu-item-container {
     border: 1px solid grey;
     border-radius: 10px 10px;
@@ -62,7 +57,7 @@
     color: black;
 }
 
-.menu-img-container{
+.menu-img-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,6 +68,13 @@
     width: 50%;
     border-radius: 5px;
 }
+
+#menu-page-button-container {
+    align-self: flex-end;
+    margin-right: 12px;
+}
+
+/* CREATE MENU ITEM FORM */
 
 .create-menu-form-container {
     display: flex;
@@ -87,32 +89,48 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 30px;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(26, 121, 255);
+    background-color: rgba(219, 219, 219, 0.178);
     border-radius: 5px;
     position: relative;
 }
 
-.create-menu-form label {
-    display: inline;
-    margin-bottom: 1px;
-    padding: 5px;
+.validation-messages {
+    color: red;
+    font-size: 15px;
+    font-family: Baskerville;
+    margin-top: 5px;
 }
 
-.create-menu-form input[type="text"],
-.create-menu-form input[type="file"],
-.create-menu-form input[type="categories"],
+.create-menu-title {
+    font-family: "Spectral SC", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: underline;
+    padding: 10px;
+    text-align: center;
+    color: rgb(26, 121, 255);
+    font-weight: 600;
+}
+
+.create-menu-form label {
+    margin-bottom: 1px;
+    color: rgb(26, 121, 255);
+    font-weight: 500;
+}
+
 .create-menu-form textarea {
-    font-family: "IM Fell DW Pica SC", serif;
+    font-family: Baskerville;
     font-weight: 400;
     font-style: normal;
     width: 95%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-top: 5px;
+    margin-top: 3px;
+    outline: none;
 }
 
-#menu-page-button-container {
-    align-self: flex-end;
-    margin-right: 12px;
+.create-menu-form textarea:focus {
+    border: 1.5px solid rgb(26, 121, 255);
 }
