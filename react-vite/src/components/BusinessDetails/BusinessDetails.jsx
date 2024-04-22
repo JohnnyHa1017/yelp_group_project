@@ -163,10 +163,6 @@ export default function OneBusiness() {
     businessPreviewImg = default_business_background
   }
 
-  const throwAlter = () => {
-    alert('Feature coming soon')
-  }
-
   useEffect(() => {
     dispatch(specificBusinessThunk(businessId))
   }, [businessId, dispatch, Object.keys(menus).length])
@@ -272,9 +268,9 @@ export default function OneBusiness() {
                   <MdOutlineRateReview />View All Reviews
                 </NavLink>
               </button>
-              <button className="bd-blue-action-buttons" onClick={throwAlter}>Follow</button>
-              <button className="bd-blue-action-buttons" onClick={throwAlter}>Share</button>
-              <button className="bd-blue-action-buttons" onClick={throwAlter}>Save</button>
+              <button className="bd-blue-action-buttons">Follow</button>
+              <button className="bd-blue-action-buttons">Share</button>
+              <button className="bd-blue-action-buttons">Save</button>
             </div>
           }
           <div className="business-detail-context-container">
@@ -338,7 +334,7 @@ export default function OneBusiness() {
             <div className="business-dtl-info-container">
               <div className="business-dtl-info-box">
                 <h2>Order Online</h2>
-                <button className="bd-red-action-buttons" onClick={throwAlter}>ORDER NOW</button>
+                <button className="bd-red-action-buttons">ORDER NOW</button>
               </div>
               <div className="business-dtl-info-box">
                 <div className="business-dtl-info">
@@ -359,7 +355,7 @@ export default function OneBusiness() {
                   </p>
                   <IoEarth className="business-dtl-info-logo" />
                 </div>
-                <button className="bd-red-action-buttons" onClick={throwAlter}>Suggest an edit</button>
+                <button className="bd-red-action-buttons">Suggest an edit</button>
               </div>
               {isOwner &&
                 <div className="business-dtl-info-box">

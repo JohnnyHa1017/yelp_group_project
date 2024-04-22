@@ -17,6 +17,7 @@ import fusion from '../../images/fusion.png'
 import seafood from '../../images/seafood.png'
 
 import './LandingPage.css'
+import Loading from "../Loading/Loading";
 
 export default function LandingPage() {
 
@@ -29,7 +30,7 @@ export default function LandingPage() {
     }, [dispatch])
 
     if (!data || !data.Review || !data.Business || !data.Users) {
-        return <div>Loading...</div>
+        return <Loading />
     }
 
     // 6 reviews on landing
@@ -120,10 +121,6 @@ export default function LandingPage() {
         }
         return preview[0].url
     }
-
-    // for(let rev of sixreviews){
-    //     console.log(rev.reviewImages, 'review in 6 revies')
-    // }
 
     function formatDescription(description){
         let newDescription = description?.slice(0,150)
