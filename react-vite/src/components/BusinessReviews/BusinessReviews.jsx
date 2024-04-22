@@ -8,13 +8,12 @@ import { MdOutlineStarPurple500 } from "react-icons/md";
 import { MdOutlineStarOutline } from "react-icons/md";
 import './BusinessReviews.css'
 
-function BusinessReviews() {
+function BusinessReviews({isFullPage}) {
     const { businessId } = useParams()
     const dispatch = useDispatch()
     const reviews = useSelector((state) => state.reviews.Review)
     const currUser = useSelector((state) => state.session.user)
     const users = useSelector((state) => state.business.Users)
-
 
     useEffect(() => {
         dispatch(businessReviewThunk(businessId))
@@ -51,7 +50,8 @@ function BusinessReviews() {
         <>
             {reviews && users ? (
                 reviews.slice().reverse().map((review, index) => (
-                    <div className='review-container' key={index}>
+                    // <div className={`menu-page-container-${isFullPage ? 'full' : ''}`}></div>
+                    <div className={`review-container ${isFullPage ? 'full' : ''}`} key={index}>
                         <div className="name-and-buttons">
                             <h3>{users[review.user_id - 1].first_name} {users[review.user_id - 1].last_name.charAt(0)}</h3>
                             {ownReview(review.user_id) && (

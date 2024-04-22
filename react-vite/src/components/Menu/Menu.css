@@ -3,23 +3,26 @@
 }
 
 .menu-page-container {
-    /* border: red 1px solid; */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.menu-page-container.full {
+    width: 65%;
+    margin: 0 auto;
+}
+
 .menu-type-container {
-    /* border: green 1px solid; */
     width: 95%;
 }
 
 .menu-page-all-items-container {
-    /* border: blue 1px solid; */
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
     /* justify-content: space-evenly; */
+    gap: auto;
 }
 
 .detail-page-back-button {
@@ -112,7 +115,6 @@
     margin-top: 5px;
 }
 
-#menu-page-button-container {
-    align-self: flex-end;
-    margin-right: 12px;
+.menu-page-button-container {
+    margin-top: 20px;
 }
