@@ -18,21 +18,26 @@ h1 {
   max-width: 600px;
   margin: 0 auto;
   padding: 30px;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(26, 121, 255);
+  background-color: rgba(219, 219, 219, 0.178);
   border-radius: 5px;
   position: relative;
 }
 
+.business-form-input::placeholder{
+  color: #999999;
+}
+
 /* Styling for section headings, form labels, input fields, and submit button */
 .create-form-h3 {
-  font-family: "Spectral SC", serif;
-  font-weight: 300;
+  font-weight: 700;
   font-style: normal;
   text-decoration: underline;
   margin-bottom: 10px;
+  color: rgb(26, 121, 255);
 }
 
-.create-form-description{
+.create-form-description {
   font-family: Baskerville;
   font-size: 15px;
   color: rgb(78, 77, 77);
@@ -40,14 +45,11 @@ h1 {
 }
 
 .business-form label {
-  display: inline;
   margin-bottom: 1px;
-  padding: 5px;
+  color: rgb(26, 121, 255);
+  font-weight: 500;
 }
 
-.business-form input[type="text"],
-.business-form input[type="file"],
-.business-form input[type="categories"],
 .business-form textarea {
   font-family: Baskerville;
   font-weight: 400;
@@ -56,9 +58,15 @@ h1 {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-top: 5px;
+  margin-top: 3px;
+  outline: none;
 }
-.business-form-select{
+
+.business-form textarea:focus{
+  border: 1.5px solid rgb(26, 121, 255);
+}
+
+.business-form-input{
   font-family: Baskerville;
   font-weight: 400;
   font-style: normal;
@@ -66,44 +74,68 @@ h1 {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-top: 5px;
+  margin-top: 3px;
+  color: #999999;
+  outline: none;
+
 }
-.create-description-textarea{
+
+.business-form-input:focus {
+  border: 1.5px solid rgb(26, 121, 255);
+}
+
+
+.create-description-textarea {
   height: 100px;
 }
 
-.business-form #submit-button {
-  font-family: "Spectral SC", serif;
-  margin-top: 10px;
+
+.create-description-textarea::placeholder {
+  color: #999999;
 }
 
-.business-form button[type="submit"] {
-  display: block;
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: 2px black ;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+.bzns-submit-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
 }
 
-/* Hover effect on the submit button */
-.business-form button[type="submit"]:hover {
-  background-color: rgb(175, 17, 17);
-  text-decoration: underline;
-}
-
-.validation-err-text{
-  color: rgb(175, 17, 17);
+.validation-err-text {
+  color: red;
   font-size: 15px;
   font-family: Baskerville;
   margin-top: 5px;
 }
-.create-form-line{
+
+.create-form-line {
   margin-top: 25px;
+  border-color:rgba(0, 56, 241, 0.288);
 }
 
-.optional-tag{
+.optional-tag {
   font-size: 10px;
+}
+
+.business-form-file{
+  color: black;
+  font-style: italic;
+}
+
+.bzns-submit-btn{
+  display: block;
+  color: black;
+  padding: 10px 20px;
+  Border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: rgb(26, 121, 255);
+  font-family: "Spectral SC", serif;
+  margin-top: 10px;
+}
+
+.bzns-submit-btn:hover{
+  background-color: rgb(26, 121, 255);
+  color: white;
+  filter: brightness(110%);
 }
