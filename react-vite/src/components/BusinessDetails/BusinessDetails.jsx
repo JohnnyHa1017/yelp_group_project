@@ -237,12 +237,12 @@ export default function OneBusiness() {
 
           <div className="business-detail-all-images-container">
             {allBusinessImg?.length > 0 && allBusinessImg?.map(image => (
-              <button className="dtl-small-image-btn" >
+              <button className="dtl-small-image-btn" key={image.id}>
                 <OpenModalMenuItem
                   className='dtl-small-image-modal'
-                  itemText={<img className="business-dtl-s-images" key={image.id} src={image.url} />}
+                  itemText={<img className="business-dtl-s-images" src={image.url} />}
                   modalComponent={<BusinessImage
-                    image={image.url} />}
+                  image={image.url} />}
                 />
               </button>
             ))}
