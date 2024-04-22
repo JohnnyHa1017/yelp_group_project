@@ -14,6 +14,8 @@
     padding: 20px;
     text-decoration: none;
     color: inherit;
+    min-width: 215px;
+    max-width: 300px;
 }
 
 .landing-card-image{
