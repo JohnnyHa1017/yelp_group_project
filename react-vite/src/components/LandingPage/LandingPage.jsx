@@ -17,7 +17,6 @@ export default function LandingPage() {
     const data = useSelector((state) => state.business)
     const reviewsArray = data.Review
 
-
     useEffect(() => {
         dispatch(landingPageThunk())
     }, [dispatch])
@@ -59,9 +58,9 @@ export default function LandingPage() {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
             if (i <= starValue) {
-                stars.push(<span key={i} className="star-filled">★</span>);
+                stars.push(<span key={i} className="l-star-filled l-star-icon">★</span>);
             } else {
-                stars.push(<span key={i} className="star-empty">☆</span>);
+                stars.push(<span key={i} className="l-star-empty l-star-icon">☆</span>);
             }
         }
         return stars
@@ -115,8 +114,16 @@ export default function LandingPage() {
         return preview[0].url
     }
 
-    for(let rev of sixreviews){
-        console.log(rev.reviewImages, 'review in 6 revies')
+    // for(let rev of sixreviews){
+    //     console.log(rev.reviewImages, 'review in 6 revies')
+    // }
+
+    function formatDescription(description){
+        let newDescription = description?.slice(0,150)
+        if(description.length > 150){
+            newDescription += '...'
+        }
+        return newDescription
     }
 
     return (
@@ -127,24 +134,21 @@ export default function LandingPage() {
                 </div>
             </div>
             <div>
-                <h1>Select a business</h1>
+                <h1>Businesses</h1>
             </div>
             <div className='all-business-container'>
-
                 {allBusiness.map(business => {
                     // const categories = Array.isArray(business.category) ? business.category : JSON.parse(business.category);
                     return (
                         <NavLink to={`/business/${business.id}`} className='business-card' key={business.id}>
                             <h2 className="landing-card-title">{business.title}</h2>
+                            <hr className='hr-line'></hr>
                             <img src={prevImg(business.businessImages)} className='landing-card-image'/>
+                            <hr className='hr-line'></hr>
+                            <p>{renderStars(businessAvgRating(business?.id))}</p>
                             <p className="landing-price-rating">{renderPriceRating(business.price_rating)}</p>
-                            <p><span className="landing-card-titles">Phone Number:</span> {business.phone_number}</p>
-                            <p><span className="landing-card-titles">Country:</span> {business.country}
-                            <p></p><span className="landing-card-titles">State:</span> {business.state} <span className="landing-card-titles">City:</span> {business.city}</p>
-                            <p><span className="landing-card-titles">Address:</span> {business.address}</p>
-                            <p><span className="landing-card-titles">Categories:</span> {business.category.split('"')}</p>
-                            <div><span className="landing-card-About">About:</span></div>
-                            <p className="landing-card-description">{business.description}</p>
+                            <p><span className="landing-card-titles"></span> {business.category.split('"')}</p>
+                            <p className="landing-card-description">{formatDescription(business.description)}</p>
                         </NavLink>
                     );
                 })}
@@ -177,8 +181,8 @@ export default function LandingPage() {
                                 </p>
                                 <img src='data?.Business[review?.business_id]?.url' alt='' />
                             </div>
-                            {/* <p className='review-description'>{review.review}</p>
-                            <p className='review-image'>{review.image}</p> */}
+                            <p className='review-description'>{}</p>
+                            <p className='review-image'>{}</p>
                         </NavLink>
                     ))}
                 </div>

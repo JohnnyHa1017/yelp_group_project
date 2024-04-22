@@ -7,6 +7,8 @@ import BusinessReviews from "../BusinessReviews/BusinessReviews";
 import MenusByBusinessId from "../Menu/MenusByBusiness";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteBusiness from "../DeleteBusiness/DeleteBusiness";
+import Loading from "../Loading/Loading";
+import BusinessImage from "./BusinessImage";
 
 import default_business_background from '../../images/default_business_background.jpg'
 import { PiBowlFoodFill } from "react-icons/pi";
@@ -117,37 +119,37 @@ export default function OneBusiness() {
       }
     }
     for (const key in amenities) {
-        switch (key) {
-          case 'accepts_credit_card': //to get each key
-            isAccepts_cc = amenities[key] //assign boolean values
-            break
-          case 'delivery':
-            isDelivery = amenities[key]
-            break
-          case 'free_wi_fi':
-            isFreeWF = amenities[key]
-            break
-          case 'good_for_groups':
-            isGoodGroup = amenities[key]
-            break
-          case 'outdoor_seating':
-            isOutdoor = amenities[key]
-            break
-          case 'pickup':
-            isPickup = amenities[key]
-            break
-          case 'reservation':
-            isReservation = amenities[key]
-            break
-          case 'street_parking':
-            isSP = amenities[key]
-            break
-          case 'vegetarian':
-            isVegetarian = amenities[key]
-            break
-          default:
-            break
-        }
+      switch (key) {
+        case 'accepts_credit_card': //to get each key
+          isAccepts_cc = amenities[key] //assign boolean values
+          break
+        case 'delivery':
+          isDelivery = amenities[key]
+          break
+        case 'free_wi_fi':
+          isFreeWF = amenities[key]
+          break
+        case 'good_for_groups':
+          isGoodGroup = amenities[key]
+          break
+        case 'outdoor_seating':
+          isOutdoor = amenities[key]
+          break
+        case 'pickup':
+          isPickup = amenities[key]
+          break
+        case 'reservation':
+          isReservation = amenities[key]
+          break
+        case 'street_parking':
+          isSP = amenities[key]
+          break
+        case 'vegetarian':
+          isVegetarian = amenities[key]
+          break
+        default:
+          break
+      }
     }
   }
 
@@ -171,7 +173,7 @@ export default function OneBusiness() {
     dispatch(specificBusinessThunk(businessId))
   }, [businessId, dispatch, Object.keys(menus).length])
 
-  function formatSchedule(schedule){
+  function formatSchedule(schedule) {
     // console.log(schedule.split(','), 'schedule')
     let day = schedule.split(',')
     return (
@@ -187,9 +189,10 @@ export default function OneBusiness() {
     )
   }
 
+
   return (
     <>
-      {business ? (
+      {selectedBusiness ? (
         <div className="business-detail-page-container">
           <div className="business-detail-header-container">
             <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImg})`, height: '360px' }}>
@@ -232,11 +235,18 @@ export default function OneBusiness() {
             </div>
           </div>
 
-              <div className="business-detail-all-images-container">
-                {allBusinessImg?.length > 0 && allBusinessImg?.map(image => (
-                  <img className="business-dtl-s-images" key={image.id} src={image.url} />
-                ))}
-              </div>
+          <div className="business-detail-all-images-container">
+            {allBusinessImg?.length > 0 && allBusinessImg?.map(image => (
+              <button className="dtl-small-image-btn" >
+                <OpenModalMenuItem
+                  className='dtl-small-image-modal'
+                  itemText={<img className="business-dtl-s-images" key={image.id} src={image.url} />}
+                  modalComponent={<BusinessImage
+                    image={image.url} />}
+                />
+              </button>
+            ))}
+          </div>
 
           {hasUserLoggedIn &&
             <div className="business-detail-action-buttons-container">
@@ -264,16 +274,16 @@ export default function OneBusiness() {
           }
           <div className="business-detail-context-container">
             <div className="business-contexts">
-                <div className="menu-container">
-                  <MenusByBusinessId />
-                </div>
+              <div className="menu-container">
+                <MenusByBusinessId />
+              </div>
               <div className="business-info-container">
                 {businessSchedule &&
                   <>
                     <h2>Schedule</h2>
                     {formatSchedule(businessSchedule)}
                   </>}
-                  <hr></hr>
+                <hr></hr>
                 <h2>Amenities</h2>
                 <div className="business-detail-amenity-container">
                   <div className="amenity-blocks">
@@ -355,6 +365,11 @@ export default function OneBusiness() {
                     </NavLink>
                   </button>
                   <button className="bd-red-action-buttons">
+                    <NavLink className='red-button-text' to={`/business/${businessId}/amenities`}>
+                      Add Amenity
+                    </NavLink>
+                  </button>
+                  <button className="bd-red-action-buttons">
                     <NavLink className='red-button-text' to={`/business/${businessId}/edit`}>
                       Edit My Business
                     </NavLink>
@@ -371,7 +386,7 @@ export default function OneBusiness() {
           </div>
         </div>
       ) : (
-        <h2>Loading ...</h2>
+        <Loading />
       )}
     </>
   )
