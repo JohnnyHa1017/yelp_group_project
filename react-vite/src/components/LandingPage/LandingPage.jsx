@@ -7,7 +7,14 @@ import { BiSolidBadgeDollar } from "react-icons/bi";
 import { formatDistanceToNow } from 'date-fns';
 import { SiYelp } from "react-icons/si";
 import default_business_background from '../../images/default_business_background.jpg'
-
+import cafe from '../../images/cafe.png'
+import japanese from '../../images/japanese.png'
+import german from '../../images/german.png'
+import italian from '../../images/italian.png'
+import bar from '../../images/bar.png'
+import dessert from '../../images/dessert.png'
+import fusion from '../../images/fusion.png'
+import seafood from '../../images/seafood.png'
 
 import './LandingPage.css'
 
@@ -134,7 +141,7 @@ export default function LandingPage() {
                 </div>
             </div>
             <div>
-                <h1>Businesses</h1>
+            <h2 className='recent-actity-text'>Businesses</h2>
             </div>
             <div className='all-business-container'>
                 {allBusiness.map(business => {
@@ -153,8 +160,8 @@ export default function LandingPage() {
                     );
                 })}
             </div>
-
             <div className='recent-activity-container'>
+                <hr className='landing-bar'></hr>
                 <h2 className='recent-actity-text'>Recent Activity</h2>
                 <div className='recent-reviews'>
                     {sixreviews.map(review => (
@@ -191,27 +198,35 @@ export default function LandingPage() {
                     <h2 className='landing-categories-text'>Categories</h2>
                     <div className='landing-category-container'>
                         <NavLink to='category/Cafe' className='landing-category'>
+                            <img className='category-img' src={cafe}/>
                             <p>Cafe</p>
                         </NavLink>
                         <NavLink to='category/Japanese' className='landing-category'>
+                            <img className='category-img' src={japanese}/>
                             <p>Japanese</p>
                         </NavLink>
                         <NavLink to='category/Italian' className='landing-category'>
+                            <img className='category-img' src={italian}/>
                             <p>Italian</p>
                         </NavLink>
                         <NavLink to='category/Bar' className='landing-category'>
+                            <img className='category-img' src={bar}/>
                             <p>Bar</p>
                         </NavLink>
                         <NavLink to='category/Seafood' className='landing-category'>
+                            <img className='category-img' src={seafood}/>
                             <p>Seafood</p>
                         </NavLink>
                         <NavLink to='category/German' className='landing-category'>
+                            <img className='category-img' src={german}/>
                             <p>German</p>
                         </NavLink>
                         <NavLink to='category/Asian Fusion' className='landing-category'>
+                            <img className='category-img' src={fusion}/>
                             <p>Asian Fusion</p>
                         </NavLink>
                         <NavLink to='category/Dessert' className='landing-category'>
+                            <img className='category-img' src={dessert}/>
                             <p>Dessert</p>
                         </NavLink>
                     </div>
