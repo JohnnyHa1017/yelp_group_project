@@ -6,8 +6,9 @@
 }
 
 .landing-business-review-container {
-    border: 1px solid rgb(219, 219, 219);
-    border-radius: 5px 5px;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid lightgray;
+    border-radius: 3px;
     width: 25%;
     margin: 10px;
     padding: 20px;
@@ -16,8 +17,9 @@
 }
 
 .landing-card-image{
-    max-height: 200px;
     width: 100%;
+    height: 200px;
+    object-fit: contain;
 }
 
 .landing-business-name {
@@ -41,7 +43,6 @@
 }
 
 .landing-category {
-    border: 1px solid rgb(219, 219, 219);
     margin: 10px;
     padding: 10px;
     height: 220px;
@@ -56,6 +57,8 @@
     text-decoration: none;
     font-weight: bold;
     color: #1A79FF;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid lightgray;
 }
 
 
@@ -76,18 +79,9 @@
     font-size: 1.5rem
 }
 
-/* .landing-category:visited,
-.landing-business-review-container:visited {
-    color: inherit;
-} */
-
 .landing-hr {
     color: rgb(219, 219, 219);
 }
-
-/* .review-description{
-
-} */
 
 .review-image {
     height: 50%;
@@ -123,23 +117,22 @@
 }
 
 .business-card {
-    background: linear-gradient(to bottom left, rgb(209, 209, 209), rgb(26,121,255)
-    );
-    border-radius: 8px;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid lightgray;
+    border-radius: 3px;
     background-size: 200% 200%;
     animation: moveGradient 5s linear infinite;
     padding: 20px;
     width: 300px;
     transition: background-color 0.5s ease;
     text-decoration: none;
-    color: white;
+    color: black;
+    /* color: white; */
 }
 
 .business-card:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
-
-    background: linear-gradient(to top right, rgb(209, 209, 209), rgb(26,121,255)
-    );}
+}
 
 .munch-logo-review{
     color: rgb(26,121,255);
@@ -162,7 +155,7 @@
 
 .landing-card-title{
     color: black;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .landing-card-description{
@@ -178,4 +171,24 @@
 .landing-rev-img{
     height: 100px;
     width: 100px;
+}
+
+.hr-line{
+    color: lightgray;
+}
+
+.l-star-icon{
+    border-radius: 5px;
+    margin-right: 4px;
+    padding: 2px;
+}
+.l-star-filled{
+    border: 1px solid rgb(26, 121, 255, 0.1);
+    background-color: rgb(26, 121, 255, 0.7);
+    color: white;
+}
+.l-star-empty{
+    border: 1px solid  rgb(191, 190, 190);
+    background-color: rgb(191, 190, 190);
+    color: white;
 }
