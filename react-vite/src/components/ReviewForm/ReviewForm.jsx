@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom'
-import { createReviewImageThunk, createReviewThunk } from '../../redux/reviews'
+import { createReviewImageThunk, createReviewThunk, updateReviewImageThunk } from '../../redux/reviews'
 import { updateReviewThunk } from '../../redux/reviews'
 
 
@@ -9,10 +9,12 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
     const dispatch = useDispatch()
     const { businessId, reviewId } = useParams()
     const user = useSelector((state) => state.session.user)
+    const reviews = useSelector(state => state.reviews)
     const nav = useNavigate()
+    let currRevImg = reviews?.ReviewImage?.find(rev => rev.id == reviewId)
     const [review, setReview] = useState(reviewToUpdate?.review)
     const [star, setStars] = useState(reviewToUpdate?.star ?? null)
-    const [image, setImage] = useState(reviewToUpdate?.image ?? null);
+    const [image, setImage] = useState(currRevImg?.url); //reviewToUpdate?.image ?? null
     const [imageLoading, setImageLoading] = useState(false);
     const [validations, setValidations] = useState('')
     const [submitted, setSubmitted] = useState(false)
@@ -48,7 +50,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
             review, star, image
         }
         if (!reviewId) {
-            console.log('CREATE REVIEW')
+            // console.log('CREATE REVIEW')
             const newReview = {
                 review, star
             }
@@ -66,8 +68,14 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
             }
         } else {
             const updateReview = await dispatch(updateReviewThunk(reviewObj, reviewId))
-            console.log(updateReview)
-            nav(`/business/${businessId}`)
+            if(updateReview){
+                const formData = new FormData()
+                formData.append('url', image)
+                formData.append('review_id', reviewId)
+                await dispatch(updateReviewImageThunk(currRevImg.id, formData))
+                setImageLoading(true)
+                nav(`/business/${businessId}`)
+            }
         }
     }
 
@@ -124,6 +132,9 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                     </label>
                     {(imageLoading) && <p>Loading...</p>}
                     {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
+                    {image?.length > 0 && (
+                        <label htmlFor="post-image-input" className="file-input-labels-noname"><img src={image} className="thumbnails-noname"></img></label>
+                    )}
                     <div className='Review-Btn-container'>
                         <button type='submit' className='Review-Submit-btn' >{buttonName}</button>
                         {/* {(imageLoading) && <p>Loading...</p>} */}
