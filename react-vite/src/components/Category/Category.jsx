@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { landingPageThunk } from "../../redux/business";
 import { BiSolidBadgeDollar } from "react-icons/bi";
-import Loading from "../Loading/Loading";
+// import Loading from "../Loading/Loading";
 import './Category.css'
 
 export default function Category() {
@@ -173,35 +173,35 @@ export default function Category() {
         <p className='filter-headers'>Features</p>
           <div className='features-container'>
             <div>
-              <input type="checkbox" name="features" placeholder=" " value="CreditCard" onClick={(e) => setCreditCard(!CreditCard)}></input>
+              <input type="checkbox" name="features" placeholder=" " value="CreditCard" onClick={() => setCreditCard(!CreditCard)}></input>
               <label>Accepts Credit Cards</label>
             </div>
             <div>
-              <input type="checkbox" name="features" placeholder=" " value="Pickup" onClick={(e) => setPickup(!Pickup)}></input>
+              <input type="checkbox" name="features" placeholder=" " value="Pickup" onClick={() => setPickup(!Pickup)}></input>
               <label>Offers Pickup</label>
             </div>
             <div>
-              <input type="checkbox" name="features" placeholder=" " value="Delivery" onClick={(e) => setDelivery(!Delivery)}></input>
+              <input type="checkbox" name="features" placeholder=" " value="Delivery" onClick={() => setDelivery(!Delivery)}></input>
               <label>Offers Delivery</label>
             </div>
             <div>
-              <input type="checkbox" name="features" placeholder=" " value="Reservation" onClick={(e) => setReservation(!Reservation)}></input>
+              <input type="checkbox" name="features" placeholder=" " value="Reservation" onClick={() => setReservation(!Reservation)}></input>
               <label>Accepts Reservations</label>
             </div>
             <div>
-              <input type="checkbox" name="features" placeholder=" " value="StreetParking" onClick={(e) => setParking(!StreetParking)}></input>
+              <input type="checkbox" name="features" placeholder=" " value="StreetParking" onClick={() => setParking(!StreetParking)}></input>
               <label>Has Street Parking</label>
             </div>
             <div>
-              <input type="checkbox" name="features" placeholder=" " value="Groups" onClick={(e) => setGroups(!Groups)}></input>
+              <input type="checkbox" name="features" placeholder=" " value="Groups" onClick={() => setGroups(!Groups)}></input>
               <label>Good for Groups</label>
             </div>
             <div>
-              <input type="checkbox" name="features" placeholder=" " value="OutdoorSeating" onClick={(e) => setSeating(!OutdoorSeating)}></input>
+              <input type="checkbox" name="features" placeholder=" " value="OutdoorSeating" onClick={() => setSeating(!OutdoorSeating)}></input>
               <label>Has Outdoor Seating</label>
             </div>
             <div>
-              <input type="checkbox" name="features" placeholder=" " value="Vegetarian" onClick={(e) => setVegetarian(!Vegetarian)}></input>
+              <input type="checkbox" name="features" placeholder=" " value="Vegetarian" onClick={() => setVegetarian(!Vegetarian)}></input>
               <label>Has Vegetarian Options</label>
             </div>
           </div>
