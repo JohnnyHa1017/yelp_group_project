@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { landingPageThunk } from "../../redux/business";
 import { BiSolidBadgeDollar } from "react-icons/bi";
+import Loading from "../Loading/Loading";
 import './Category.css'
 
 export default function Category() {
   const dispatch = useDispatch()
   const { category } = useParams()
-
+  
   const reviewsArray = useSelector(state => state.business.Review)
   const businesses = useSelector(state => state.business?.Business)
-  const selectedBusiness = businesses?.filter(ele => ele.category.includes(category))
-  // console.log('selectedBusiness ==>', selectedBusiness)
+  const amenities = useSelector(state => state.business?.Amenities)
+  let selectedBusiness = businesses?.filter(ele => ele.category.includes(category))
+  selectedBusiness?.forEach(bus => bus.amenities = amenities?.filter(ele => ele.business_id == bus.id)[0])
+
   const [CreditCard, setCreditCard] = useState(false)
   const [Pickup, setPickup] = useState(false)
   const [Delivery, setDelivery] = useState(false)
@@ -21,6 +24,31 @@ export default function Category() {
   const [Groups, setGroups] = useState(false)
   const [OutdoorSeating, setSeating] = useState(false)
   const [Vegetarian, setVegetarian] = useState(false)
+
+  console.log('selectedBusiness ==>', selectedBusiness)
+
+  if (CreditCard) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.amenities.accepts_credit_card == true)
+  }
+  if (Pickup) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.amenities.pickup == true)
+  }
+  if (Delivery) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.amenities.delivery == true)
+  }
+  if (Reservation) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.amenities.reservation == true)
+  }
+  if (Groups) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.amenities.good_for_groups == true)
+  }
+  if (OutdoorSeating) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.amenities.outdoor_seating == true)
+  }
+  if (Vegetarian) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.amenities.vegetarian == true)
+  }
+
 
   function renderPriceRating(priceRating) {
     switch (priceRating) {
