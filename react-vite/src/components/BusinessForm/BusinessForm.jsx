@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom'
-import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessThunk } from '../../redux/business'
+import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessImageThunk, updateBusinessThunk } from '../../redux/business'
 import './BusinessForm.css'
 
 const CreateNewBusiness = ({ buttonName, business }) => {
   const dispatch = useDispatch()
   const nav = useNavigate()
   const user = useSelector((state) => state.session.user)
+  const currBusiness = useSelector(state => state.business)
   const { businessId } = useParams()
 
   let exisiting_price_rating = ''
@@ -28,14 +29,13 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [phone_number, setPhoneNumber] = useState(business?.phone_number);
   const [price_rating, setPrice] = useState(exisiting_price_rating);
   const [category, setCategory] = useState(business?.category);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(currBusiness[businessId]?.businessImages[0]?.url);
   const [imageLoading, setImageLoading] = useState(false);
   // const [preview, setPreview] = useState(false)
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
   let isValidated = false
-
   useEffect(() => {
     if (!user) {
       nav('/')
@@ -142,7 +142,11 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     } else {
       const updateBusiness = await dispatch(updateBusinessThunk(business, businessId));
       if (updateBusiness) {
-
+        const formData = new FormData();
+        formData.append("url", image);
+        formData.append('preview', true)
+        formData.append('business_id', businessId)
+        await dispatch(updateBusinessImageThunk(currBusiness[businessId]?.businessImages[0]?.id, formData))
         setImageLoading(true);
         nav(`/business/${businessId}`);
       }
@@ -340,6 +344,9 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       </label>
       {(imageLoading) && <p>Loading...</p>}
       {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
+      {image?.length > 0 && (
+        <label htmlFor="post-image-input" className="file-input-labels-noname"><img src={image} className="thumbnails-noname"></img></label>
+      )}
       {/* <hr className='create-form-line'></hr>
       <h3 className="create-form-h3">Add your images</h3>
       <label>

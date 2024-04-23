@@ -139,3 +139,12 @@ h1 {
   color: white;
   filter: brightness(110%);
 }
+
+.file-input-labels-noname:hover {
+  cursor: pointer;
+}
+
+.thumbnails-noname{
+  width: 100px;
+  height: 100px;
+}
