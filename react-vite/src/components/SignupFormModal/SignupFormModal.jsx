@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
 import "./SignupForm.css";
+import google from '../../images/google.png'
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -127,6 +128,11 @@ function SignupFormModal() {
         {errors.confirmPassword && <p className="sign-up-errors">* {errors.confirmPassword}</p>}
         <button className='signup-btn' type="submit">Sign Up</button>
       </form>
+      <a href={`${window.origin}/api/auth/oauth_login`} className='google-oauth'>
+          <button className='google-login-btn'>
+            <img src={google} alt='google-icon'className='google-logo'/>Signup with Google
+          </button>
+      </a>
     </>
   );
 }

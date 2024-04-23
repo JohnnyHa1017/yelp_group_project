@@ -1,0 +1,59 @@
+.review-form-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap:10px;
+}
+
+.Stars-field{
+    margin-right: 25%;
+}
+
+.Stars{
+    color: rgba(26, 121, 255, 0.7);
+}
+
+.review-form-header{
+    color: rgb(26, 121, 255);
+    font-weight: 600;
+}
+
+.Review-Submit-btn{
+    display: block;
+    color: black;
+    padding: 10px 20px;
+    Border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: rgb(26, 121, 255);
+    font-family: "Spectral SC", serif;
+    margin-top: 10px;
+}
+.Review-Submit-btn:hover{
+    background-color: rgb(26, 121, 255);
+    color: white;
+    filter: brightness(110%);
+}
+
+.review-form-h3{
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: underline;
+    margin-bottom: 10px;
+    color: rgb(26, 121, 255);
+    font-family: "Spectral SC", serif;
+}
+
+.review-form{
+    font-family: "Spectral SC", serif;
+    font-weight: 200;
+    font-style: normal;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid rgb(26, 121, 255);
+    background-color: rgba(219, 219, 219, 0.178);
+    border-radius: 5px;
+    position: relative;
+}

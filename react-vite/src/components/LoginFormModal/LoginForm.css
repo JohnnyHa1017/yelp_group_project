@@ -40,3 +40,26 @@
 .demo-login-btn:hover{
     color: rgb(26,121,255);
 }
+
+.google-oauth{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 15px;
+}
+.google-login-btn{
+    padding: 10px;
+    margin-top: 5px;
+    display: flex;
+    background-color: white;
+    border: 1px solid lightgray;
+}
+.google-login-btn:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}
+.google-logo{
+    padding-right: 5px;
+    height: 15px;
+}

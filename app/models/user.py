@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(255), nullable=False)
+    hashed_password = db.Column(db.String(255), nullable=True, default=None)
 
     businesses = relationship('Business', back_populates='users')
     reviews = relationship('Review', back_populates='users')
