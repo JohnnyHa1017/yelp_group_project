@@ -29,7 +29,7 @@ const UpdateReview = () => {
 
     return (
         <>
-            <h1>Update Review</h1>
+            <h1 className='review-form-header'>Update Review</h1>
             {/* Pass the review prop to CreateNewReview component */}
             <div className='update-form-container'>
             <CreateNewReview reviewToUpdate={reviewToUpdate} buttonName={buttonName} />

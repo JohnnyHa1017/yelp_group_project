@@ -11,7 +11,7 @@ const CreateReview = () => {
 
     return (
         <>
-            <h1>Create a Review</h1>
+            <h1 className='review-form-header'>Create a Review</h1>
             <div>
             <CreateNewReview reviewToUpdate={review} buttonName={buttonName}/>
             </div>

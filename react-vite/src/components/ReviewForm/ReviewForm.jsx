@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom'
 import { createReviewImageThunk, createReviewThunk, updateReviewImageThunk } from '../../redux/reviews'
 import { updateReviewThunk } from '../../redux/reviews'
-
+import './ReviewForm.css'
 
 const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
     const dispatch = useDispatch()
@@ -82,14 +82,14 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
 
     return (
         <>
-            <div>
+            <div className='review-form'>
                 <form
                     onSubmit={handleSubmit}
                     encType="multipart/form-data"
                     className="review-form-container"
                 >
-                    {/* <h1 className='title'>Create a Review</h1> */}
                     {submitted && validations && validations.message && <p>{validations.message}</p>}
+                    <h3 className='review-form-h3'>Select a star rating</h3>
                     <div className='Stars-field'>
                         {[1, 2, 3, 4, 5].map((star, i) => {
                             const ratingValue = i + 1;
@@ -107,6 +107,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                             );
                         })}
                     </div>
+                    <h3 className='review-form-h3'>Add your review</h3>
                     <textarea
                         className='review-textarea'
                         type='text'
@@ -123,6 +124,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                     {(submitted && star < 1) && (
                         <p style={{ color: 'red' }}>You must select a star rating</p>
                     )}
+                    <h3 className='review-form-h3'>Include a photo</h3>
                     <label>
                         <input
                             type='file'
