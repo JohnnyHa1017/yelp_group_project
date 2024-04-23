@@ -94,8 +94,6 @@ export default function Category() {
     selectedBusiness = selectedBusiness.filter(bus => bus.price_rating == priceRating)
   }
 
-  console.log('selectedBusiness ==>', selectedBusiness)
-
   function renderPriceRating(priceRating) {
     switch (priceRating) {
       case 1:
@@ -144,15 +142,6 @@ export default function Category() {
     }
     return avgRating / numRev
   }
-  function numReview (businessId) {
-    let numRev = 0
-    for (let review of reviewsArray) {
-        if (review.business_id == businessId) {
-            numRev++
-        }
-    }
-    return numRev
-  }
   //render stars
   function renderStars(starValue) {
     const stars = [];
@@ -174,11 +163,11 @@ export default function Category() {
         <p className='filter-headers'>Filters</p>
         <p className='filter-headers'>Price</p>
           <div>
-            <button onClick={() => handlePriceFilter(1)}>$</button>
-            <button onClick={() => handlePriceFilter(2)}>$$</button>
-            <button onClick={() => handlePriceFilter(3)}>$$$</button>
-            <button onClick={() => handlePriceFilter(4)}>$$$$</button>
-            <button onClick={() => handlePriceFilter(0)}>All</button>
+            <button className={`price-btns ${priceRating == 1 ? 'on' : 'off'}`} onClick={() => handlePriceFilter(1)}>$</button>
+            <button className={`price-btns ${priceRating == 2 ? 'on' : 'off'}`} onClick={() => handlePriceFilter(2)}>$$</button>
+            <button className={`price-btns ${priceRating == 3 ? 'on' : 'off'}`} onClick={() => handlePriceFilter(3)}>$$$</button>
+            <button className={`price-btns ${priceRating == 4 ? 'on' : 'off'}`} onClick={() => handlePriceFilter(4)}>$$$$</button>
+            <button className={`price-btns ${priceRating == 0 ? 'on' : 'off'}`} onClick={() => handlePriceFilter(0)}>All</button>
           </div>
         <hr></hr>
         <p className='filter-headers'>Features</p>
@@ -219,15 +208,15 @@ export default function Category() {
           <hr></hr>
           <p className='filter-headers'>Categories</p>
           <div className='filter-categories'>
-            <button onClick={() => handleCategory(cafe, setCafe)} className='cat-btns'>Cafe</button>
-            <button onClick={() => handleCategory(japanese, setJapanese)} className='cat-btns'>Japanese</button>
-            <button onClick={() => handleCategory(italian, setItalian)} className='cat-btns'>Italian</button>
-            <button onClick={() => handleCategory(bar, setBar)} className='cat-btns'>Bar</button>
-            <button onClick={() => handleCategory(seafood, setSeafood)} className='cat-btns'>Seafood</button>
-            <button onClick={() => handleCategory(german, setGerman)} className='cat-btns'>German</button>
-            <button onClick={() => handleCategory(asianFusion, setAsianFusion)} className='cat-btns'>Asian Fusion</button>
-            <button onClick={() => handleCategory(brunch, setBrunch)} className='cat-btns'>Brunch</button>
-            <button onClick={() => handleCategory(deli, setDeli)} className='cat-btns'>Deli</button>
+            <button onClick={() => handleCategory(cafe, setCafe)} className={`cat-btns ${cafe ? 'on' : 'off'}`}>Cafe</button>
+            <button onClick={() => handleCategory(japanese, setJapanese)} className={`cat-btns ${japanese ? 'on' : 'off'}`}>Japanese</button>
+            <button onClick={() => handleCategory(italian, setItalian)} className={`cat-btns ${italian ? 'on' : 'off'}`}>Italian</button>
+            <button onClick={() => handleCategory(bar, setBar)} className={`cat-btns ${bar ? 'on' : 'off'}`}>Bar</button>
+            <button onClick={() => handleCategory(seafood, setSeafood)} className={`cat-btns ${seafood ? 'on' : 'off'}`}>Seafood</button>
+            <button onClick={() => handleCategory(german, setGerman)} className={`cat-btns ${german ? 'on' : 'off'}`}>German</button>
+            <button onClick={() => handleCategory(asianFusion, setAsianFusion)} className={`cat-btns ${asianFusion ? 'on' : 'off'}`}>Asian Fusion</button>
+            <button onClick={() => handleCategory(brunch, setBrunch)} className={`cat-btns ${brunch ? 'on' : 'off'}`}>Brunch</button>
+            <button onClick={() => handleCategory(deli, setDeli)} className={`cat-btns ${deli ? 'on' : 'off'}`}>Deli</button>
           </div>
       </div>
       <div className='category-business-container'>

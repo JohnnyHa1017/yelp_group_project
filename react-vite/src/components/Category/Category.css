@@ -31,6 +31,18 @@
     background-color: rgba(0, 31, 204, 0.2);
     border: 1px solid rgba(0, 31, 204, 0.2);
 }
+.cat-btns.on {
+    background-color: rgb(26,121,255);
+}
+
+.price-btns {
+    background-color: white;
+    border-radius: 4px;
+    border: 1px grey solid;
+}
+.price-btns.on {
+    background-color: rgb(26,121,255);
+}
 
 .cat-business-card{
     width: auto;
