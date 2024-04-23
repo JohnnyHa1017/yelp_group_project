@@ -16,6 +16,7 @@ export default function Category() {
   let selectedBusiness = businesses?.filter(ele => ele.category.includes(category))
   selectedBusiness?.forEach(bus => bus.amenities = amenities?.filter(ele => ele.business_id == bus.id)[0])
 
+  // Amenity filter
   const [CreditCard, setCreditCard] = useState(false)
   const [Pickup, setPickup] = useState(false)
   const [Delivery, setDelivery] = useState(false)
@@ -24,9 +25,6 @@ export default function Category() {
   const [Groups, setGroups] = useState(false)
   const [OutdoorSeating, setSeating] = useState(false)
   const [Vegetarian, setVegetarian] = useState(false)
-
-  console.log('selectedBusiness ==>', selectedBusiness)
-
   if (CreditCard) {
     selectedBusiness = selectedBusiness.filter(bus => bus.amenities.accepts_credit_card == true)
   }
@@ -49,6 +47,54 @@ export default function Category() {
     selectedBusiness = selectedBusiness.filter(bus => bus.amenities.vegetarian == true)
   }
 
+  // Category filter
+  const [cafe, setCafe] = useState(false)
+  const [japanese, setJapanese] = useState(false)
+  const [italian, setItalian] = useState(false)
+  const [bar, setBar] = useState(false)
+  const [seafood, setSeafood] = useState(false)
+  const [german, setGerman] = useState(false)
+  const [asianFusion, setAsianFusion] = useState(false)
+  const [brunch, setBrunch] = useState(false)
+  const [deli, setDeli] = useState(false)
+  const handleCategory = (category, categorySetter) => {
+    categorySetter(!category)
+  }
+  if (cafe) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.category.includes('Cafe'))
+  }
+  if (japanese) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.category.includes('Japanese'))
+  }
+  if (italian) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.category.includes('Italian'))
+  }
+  if (bar) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.category.includes('Bar'))
+  }
+  if (seafood) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.category.includes('Seafood'))
+  }
+  if (asianFusion) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.category.includes('Asian Fusion'))
+  }
+  if (brunch) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.category.includes('Brunch'))
+  }
+  if (deli) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.category.includes('Deli'))
+  }
+
+  // price filter
+  const [priceRating, setPriceRating] = useState(0)
+  const handlePriceFilter = (price) => {
+    setPriceRating(price)
+  }
+  if (priceRating !== 0) {
+    selectedBusiness = selectedBusiness.filter(bus => bus.price_rating == priceRating)
+  }
+
+  console.log('selectedBusiness ==>', selectedBusiness)
 
   function renderPriceRating(priceRating) {
     switch (priceRating) {
@@ -98,7 +144,7 @@ export default function Category() {
     }
     return avgRating / numRev
   }
-  function numReview(businessId) {
+  function numReview (businessId) {
     let numRev = 0
     for (let review of reviewsArray) {
         if (review.business_id == businessId) {
@@ -128,10 +174,11 @@ export default function Category() {
         <p className='filter-headers'>Filters</p>
         <p className='filter-headers'>Price</p>
           <div>
-            <button>$</button>
-            <button>$$</button>
-            <button>$$$</button>
-            <button>$$$$</button>
+            <button onClick={() => handlePriceFilter(1)}>$</button>
+            <button onClick={() => handlePriceFilter(2)}>$$</button>
+            <button onClick={() => handlePriceFilter(3)}>$$$</button>
+            <button onClick={() => handlePriceFilter(4)}>$$$$</button>
+            <button onClick={() => handlePriceFilter(0)}>All</button>
           </div>
         <hr></hr>
         <p className='filter-headers'>Features</p>
@@ -172,15 +219,15 @@ export default function Category() {
           <hr></hr>
           <p className='filter-headers'>Categories</p>
           <div className='filter-categories'>
-            <button className='cat-btns'>Cafe</button>
-            <button className='cat-btns'>Japanese</button>
-            <button className='cat-btns'>Italian</button>
-            <button className='cat-btns'>Bar</button>
-            <button className='cat-btns'>Seafood</button>
-            <button className='cat-btns'>German</button>
-            <button className='cat-btns'>Asian Fusion</button>
-            <button className='cat-btns'>Brunch</button>
-            <button className='cat-btns'>Deli</button>
+            <button onClick={() => handleCategory(cafe, setCafe)} className='cat-btns'>Cafe</button>
+            <button onClick={() => handleCategory(japanese, setJapanese)} className='cat-btns'>Japanese</button>
+            <button onClick={() => handleCategory(italian, setItalian)} className='cat-btns'>Italian</button>
+            <button onClick={() => handleCategory(bar, setBar)} className='cat-btns'>Bar</button>
+            <button onClick={() => handleCategory(seafood, setSeafood)} className='cat-btns'>Seafood</button>
+            <button onClick={() => handleCategory(german, setGerman)} className='cat-btns'>German</button>
+            <button onClick={() => handleCategory(asianFusion, setAsianFusion)} className='cat-btns'>Asian Fusion</button>
+            <button onClick={() => handleCategory(brunch, setBrunch)} className='cat-btns'>Brunch</button>
+            <button onClick={() => handleCategory(deli, setDeli)} className='cat-btns'>Deli</button>
           </div>
       </div>
       <div className='category-business-container'>
