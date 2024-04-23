@@ -3,24 +3,47 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: "Spectral SC", serif;
+    font-weight: 200;
+    font-style: normal;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid rgb(26, 121, 255);
+    background-color: rgba(219, 219, 219, 0.178);
+    border-radius: 5px;
+    position: relative;
 }
 
 .create-amen-description{
     margin: 0px;
     padding: 0px;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: underline;
+    margin-bottom: 10px;
+    color: rgb(26, 121, 255);
 }
 
 .create-amen-form{
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0 10px;
 }
 
 .amenities-label-container{
     padding: 10px;
+    cursor: pointer;
 }
+
+.amenities-label-container:hover{
+    color:rgb(26,121,255);
+    cursor: pointer;
+}
+
 .amenities-label-container:hover .amen-icons{
     color:rgb(26,121,255);
+
 }
 
 .amenities-label-container.checked .amen-icons{

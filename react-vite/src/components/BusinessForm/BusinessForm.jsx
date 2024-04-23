@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom'
-import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessThunk } from '../../redux/business'
+import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessImageThunk, updateBusinessThunk } from '../../redux/business'
 import './BusinessForm.css'
 
 const CreateNewBusiness = ({ buttonName, business }) => {
   const dispatch = useDispatch()
   const nav = useNavigate()
   const user = useSelector((state) => state.session.user)
+  const currBusiness = useSelector(state => state.business)
   const { businessId } = useParams()
 
   let exisiting_price_rating = ''
@@ -28,20 +29,19 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [phone_number, setPhoneNumber] = useState(business?.phone_number);
   const [price_rating, setPrice] = useState(exisiting_price_rating);
   const [category, setCategory] = useState(business?.category);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(currBusiness[businessId]?.businessImages[0]?.url);
   const [imageLoading, setImageLoading] = useState(false);
   // const [preview, setPreview] = useState(false)
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
   let isValidated = false
-
   useEffect(() => {
     if (!user) {
       nav('/')
     }
     const errors = {}
-    if (submitted){
+    if (submitted) {
       if (!title || (title.length > 50)) {
         errors.title = 'Title is required and can only be under 50 characters.'
       }
@@ -60,13 +60,13 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       if (!lat || (lat >= 90) || (lat <= -90)) {
         errors.lat = 'Latitude must be a number between -90 and 90.'
       }
-      if (isNaN(lat)&&lat.length>1) {
+      if (isNaN(lat) && lat.length > 1) {
         errors.lat_int = 'Latitude can only contain numbers.'
       }
       if (!lng || (lng >= 180) || (lng <= -180)) {
         errors.lng = 'Longitude must be between -180 and 180.'
       }
-      if (isNaN(lng)&&lng.length>1) {
+      if (isNaN(lng) && lng.length > 1) {
         errors.lng_int = 'Longitude can only contain numbers.'
       }
       if (!description || (description.length > 2000)) {
@@ -142,7 +142,11 @@ const CreateNewBusiness = ({ buttonName, business }) => {
     } else {
       const updateBusiness = await dispatch(updateBusinessThunk(business, businessId));
       if (updateBusiness) {
-
+        const formData = new FormData();
+        formData.append("url", image);
+        formData.append('preview', true)
+        formData.append('business_id', businessId)
+        await dispatch(updateBusinessImageThunk(currBusiness[businessId]?.businessImages[0]?.id, formData))
         setImageLoading(true);
         nav(`/business/${businessId}`);
       }
@@ -157,10 +161,11 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       className='business-form'
     >
       <h3 className='create-form-h3'>Business Information</h3>
-      <p className='create-form-description'>Add your businesses information so Munch users can find you!</p>
-      <label className='create-label-container'>
+      <p className='create-form-description'>What&apos;s your name and where can we reach you?</p>
+      <label>
         Business Name :
         <input
+          className="business-form-input"
           type='text'
           name='title'
           value={title}
@@ -169,11 +174,12 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         ></input>
       </label>
       {validations.title && (<p className='validation-err-text'>{validations.title}</p>)}
-      <label className='create-label-container'>
+      <label>
         Business Phone Number :
         <input
           type='text'
           name='phone number'
+          className="business-form-input"
           value={phone_number}
           placeholder='Phone Number'
           onChange={(e) => setPhoneNumber(e.target.value)}
@@ -190,6 +196,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         <input
           type='text'
           name='address'
+          className="business-form-input"
           value={address}
           placeholder='Address'
           onChange={(e) => setAddress(e.target.value)}
@@ -201,6 +208,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         <input
           type='text'
           name='city'
+          className="business-form-input"
           value={city}
           placeholder='City'
           onChange={(e) => setCity(e.target.value)}
@@ -212,6 +220,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         <input
           type='text'
           name='state'
+          className="business-form-input"
           value={state}
           placeholder='State'
           onChange={(e) => setState(e.target.value)}
@@ -224,6 +233,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           type='text'
           name='country'
           value={country}
+          className="business-form-input"
           placeholder='Country'
           onChange={(e) => setCountry(e.target.value)}
         ></input>
@@ -236,6 +246,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           type='text'
           name='lat'
           value={lat}
+          className="business-form-input"
           placeholder='Latitude'
           onChange={(e) => setLat(e.target.value)}
         ></input>
@@ -249,6 +260,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           type='text'
           name='lng'
           value={lng}
+          className="business-form-input"
           placeholder='Longitude'
           onChange={(e) => setLng(e.target.value)}
         ></input>
@@ -257,11 +269,11 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       {validations.lng_int && (<p className='validation-err-text'>{validations.lng_int}</p>)}
       <hr className='create-form-line'></hr>
       <h3 className='create-form-h3'>Select a price rating</h3>
-      <p className='create-form-description'>What is the approximate cost per person for your business?</p>
+      <p className='create-form-description'>What is the price range of your business?</p>
       <label>
         Price :
         <select
-          className='business-form-select'
+          className="business-form-input"
           value={price_rating}
           placeholder="$"
           onChange={(e) => setPrice(e.target.value)}
@@ -277,11 +289,11 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       {validations.price_range && (<p className='validation-err-text'>{validations.price_range}</p>)}
       <hr className='create-form-line'></hr>
       <h3 className='create-form-h3'>Tell us about your business</h3>
-      <p className='create-form-description'>Add a category to your business to help Munch users search for your business.</p>
-      <label>
-        Category : <br></br>
+      <p className='create-form-description'>What type of food does your business serve</p>
+      <label >
+        Category :
         <select
-          className='business-form-select'
+          className="business-form-input"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -309,8 +321,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         </select>
       </label>
       {validations.category && (<p className='validation-err-text'>{validations.category}</p>)}
-      <br></br>
-      <p className='create-form-description'>What makes your business stand out from others? Tell Munch users why they should visit you!</p>
+
       <label>
         Description :
         <textarea
@@ -325,13 +336,17 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       {validations.description && (<p className='validation-err-text'>{validations.description}</p>)}
       <label>
         <input
-            type='file'
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
+          type='file'
+          className="business-form-file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
         ></input>
       </label>
       {(imageLoading) && <p>Loading...</p>}
       {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
+      {image?.length > 0 && (
+        <label htmlFor="post-image-input" className="file-input-labels-noname"><img src={image} className="thumbnails-noname"></img></label>
+      )}
       {/* <hr className='create-form-line'></hr>
       <h3 className="create-form-h3">Add your images</h3>
       <label>
@@ -861,8 +876,10 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           <option value='11:00pm'></option>
         </datalist>
       </label> */}
-      <button id='submit-button' type='submit' disabled={isValidated}>{buttonName}</button>
+      <div className="bzns-submit-container">
+      <button className="bzns-submit-btn" id='submit-button' type='submit' disabled={isValidated}>{buttonName}</button>
       {(imageLoading) && <p>Loading...</p>}
+      </div>
     </form>
   )
 }

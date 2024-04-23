@@ -154,19 +154,13 @@ export default function OneBusiness() {
   }
 
   const allBusinessImg = selectedBusiness?.businessImages?.filter(ele => ele.menu_id == null)
-  console.log('allBusinessImg ==>', allBusinessImg)
 
   //business background image
   if (selectedBusiness?.businessImages) {
     businessPreviewImg = selectedBusiness?.businessImages[0]?.url
-    // console.log('businessPreviewImg ==>', businessPreviewImg)
   } else {
     businessPreviewImg = default_business_background
     businessPreviewImg = default_business_background
-  }
-
-  const throwAlter = () => {
-    alert('Feature coming soon')
   }
 
   useEffect(() => {
@@ -174,7 +168,6 @@ export default function OneBusiness() {
   }, [businessId, dispatch, Object.keys(menus).length])
 
   function formatSchedule(schedule) {
-    // console.log(schedule.split(','), 'schedule')
     let day = schedule.split(',')
     return (
       <div className='schedule-container'>
@@ -189,13 +182,18 @@ export default function OneBusiness() {
     )
   }
 
+  const previewImageStyling = {
+    height: '360px',
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${businessPreviewImg})`,
+    backgroundBlendMode: 'overlay'
+  };
 
   return (
     <>
       {selectedBusiness ? (
         <div className="business-detail-page-container">
           <div className="business-detail-header-container">
-            <div className="business-detail-header-img" style={{ backgroundImage: `url(${businessPreviewImg})`, height: '360px' }}>
+            <div className="business-detail-header-img" style={previewImageStyling}>
               <h1 className="business-detail-header-text">{selectedBusiness?.title}</h1>
               <div className="bd-star-rating-container">
                 {reviews?.Review && avgStarRating > 0 ? (
@@ -229,8 +227,11 @@ export default function OneBusiness() {
                   <BiSolidBadgeDollar key={index} className="bd-dollar-sign" />
                 ))}
               </div>
-              <p className="business-detail-header-text schedule-text">
-                {businessSchedule}
+              <p className="business-detail-header-text">
+                {selectedBusiness.address}
+              </p>
+              <p className="business-detail-header-text">
+                {selectedBusiness.state}, {selectedBusiness.city}, {selectedBusiness.country}
               </p>
             </div>
           </div>
@@ -242,7 +243,7 @@ export default function OneBusiness() {
                   className='dtl-small-image-modal'
                   itemText={<img className="business-dtl-s-images" src={image.url} />}
                   modalComponent={<BusinessImage
-                  image={image.url} />}
+                    image={image.url} />}
                 />
               </button>
             ))}
@@ -267,9 +268,9 @@ export default function OneBusiness() {
                   <MdOutlineRateReview />View All Reviews
                 </NavLink>
               </button>
-              <button className="bd-blue-action-buttons" onClick={throwAlter}>Follow</button>
-              <button className="bd-blue-action-buttons" onClick={throwAlter}>Share</button>
-              <button className="bd-blue-action-buttons" onClick={throwAlter}>Save</button>
+              <button className="bd-blue-action-buttons">Follow</button>
+              <button className="bd-blue-action-buttons">Share</button>
+              <button className="bd-blue-action-buttons">Save</button>
             </div>
           }
           <div className="business-detail-context-container">
@@ -333,7 +334,7 @@ export default function OneBusiness() {
             <div className="business-dtl-info-container">
               <div className="business-dtl-info-box">
                 <h2>Order Online</h2>
-                <button className="bd-red-action-buttons" onClick={throwAlter}>ORDER NOW</button>
+                <button className="bd-red-action-buttons">ORDER NOW</button>
               </div>
               <div className="business-dtl-info-box">
                 <div className="business-dtl-info">
@@ -354,7 +355,7 @@ export default function OneBusiness() {
                   </p>
                   <IoEarth className="business-dtl-info-logo" />
                 </div>
-                <button className="bd-red-action-buttons" onClick={throwAlter}>Suggest an edit</button>
+                <button className="bd-red-action-buttons">Suggest an edit</button>
               </div>
               {isOwner &&
                 <div className="business-dtl-info-box">
@@ -374,7 +375,7 @@ export default function OneBusiness() {
                       Edit My Business
                     </NavLink>
                   </button>
-                  <button className="bd-red-action-buttons">
+                  <button className="bd-red-action-buttons dtl-page-delete-btn">
                     <OpenModalMenuItem className='red-button-text'
                       itemText='Delete Business'
                       modalComponent={<DeleteBusiness businessId={businessId} reRenderOnDelete={reRenderOnDelete} />}

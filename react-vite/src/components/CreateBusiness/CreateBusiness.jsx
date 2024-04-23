@@ -1,5 +1,5 @@
 import CreateNewBusiness from "../BusinessForm/BusinessForm"
-
+import './CreateBusiness.css'
 
 const CreateBusiness = () => {
   const buttonName = 'Create a New Business'
@@ -22,7 +22,7 @@ const CreateBusiness = () => {
 
   return (
     <>
-      <h1>Create Your New Business</h1>
+      <h1 className="CR-bzns-title">Create Your New Business</h1>
       <CreateNewBusiness buttonName={ buttonName } business={ business }/>
     </>
     )

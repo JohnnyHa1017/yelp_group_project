@@ -35,6 +35,10 @@ class Business(db.Model):
   def business_img(self):
     return[images.to_dict() for images in self.business_images]
 
+  @property
+  def business_reviews(self):
+    return [review.to_dict() for review in self.reviews]
+
   def to_dict(self):
     return {
       'id': self.id,
@@ -51,6 +55,7 @@ class Business(db.Model):
       'phone_number': self.phone_number,
       'description': self.description,
       'schedule':self.schedule,
-      'businessImages': self.business_img
+      'businessImages': self.business_img,
+      'reviews': self.business_reviews
       # 'image_url': self.image_url
     }

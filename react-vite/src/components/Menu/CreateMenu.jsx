@@ -52,6 +52,9 @@ function CreateMenu() {
             if (!price || typeof price !== 'number') {
                 errors.price = 'Price is required and must be a number'
             }
+            if (price < 0) {
+                errors.price = 'Price must be a positive number'
+            }
             if (description.length > 2000) {
                 errors.description = 'Description must be under 2000 characters'
             }
@@ -86,26 +89,32 @@ function CreateMenu() {
 
     return (
         <div className='create-menu-form-container'>
-            <h1>Create Menu for {businessTitle}</h1>
+            <h1 className='create-menu-title'>Add an item to {businessTitle}&apos;s menu</h1>
             <form
                 onSubmit={handleSubmit}
                 className='create-menu-form'
                 encType='multipart/form-data'
             >
+                <h3 className='create-form-h3'>Menu information</h3>
+                <p className='create-form-description'> What&apos;s the name of your menu item?</p>
                 <label className='create-menu-label-container'>
-                    <h3>Menu Item Name</h3>
+                    Item Name :
                     <input
                         type='text'
                         name='name'
+                        className="business-form-input"
                         value={name}
-                        placeholder='Menu Name'
+                        placeholder='Item name'
                         onChange={(e) => setName(e.target.value)}
                     ></input>
                 </label>
                 {validations.name && (<p className='validation-messages'>{validations.name}</p>)}
+                <h3 className='create-form-h3'>Category</h3>
+                <p className='create-form-description'>What&apos;s the category of your menu item?</p>
                 <label className='create-menu-label-container'>
-                    <h3>Menu Item Category</h3>
-                    <select onChange={(e) => setCategory(e.target.value)}>
+                    Food Category:
+                    <select className="business-form-input"
+                        onChange={(e) => setCategory(e.target.value)}>
                         <option value='' disabled selected hidden>Please select a category</option>
                         <option value='Appetizer' >Appetizer</option>
                         <option value='Drink' >Drink</option>
@@ -115,38 +124,47 @@ function CreateMenu() {
                     </select>
                 </label>
                 {validations.category && (<p className='validation-messages'>{validations.category}</p>)}
+                <h3 className='create-form-h3'>select a price</h3>
+                <p className='create-form-description'>How much does your menu item cost?</p>
                 <label className='create-menu-label-container'>
-                    <h3>Price</h3>
+                    price :
                     <input
                         type='text'
                         name='price'
+                        className="business-form-input"
                         value={price}
                         placeholder='Price'
                         onChange={(e) => setPrice(e.target.value)}
                     ></input>
                 </label>
                 {validations.price && (<p className='validation-messages'>{validations.price}</p>)}
+                <h3 className='create-form-h3'>Details</h3>
+                <p className='create-form-description'>How would you describe your menu item?</p>
                 <label className='create-menu-label-container'>
-                    <h3>Description</h3>
-                    <input
+                    Description :
+                    <textarea
                         type='text'
+                        className='create-description-textarea'
                         name='description'
                         value={description}
                         placeholder='Description'
                         onChange={(e) => setDescription(e.target.value)}
-                    ></input>
+                    ></textarea>
                 </label>
                 {validations.description && (<p className='validation-messages'>{validations.description}</p>)}
                 <label>
                     <input
                         type='file'
                         accept="image/*"
+                        className="business-form-file"
                         onChange={(e) => setImage(e.target.files[0])}
                     ></input>
                 </label>
                 {(imageLoading) && <p>Loading...</p>}
                 {validations.image && (<p className='validation-err-text'>{validations.image}</p>)}
-                <button className='amen-create-btn' type='submit' disabled={isValidated}>Create Menu</button>
+                <div className="bzns-submit-container">
+                    <button className='bzns-submit-btn' type='submit' disabled={isValidated}>Create Menu</button>
+                </div>
             </form>
         </div>
     )
