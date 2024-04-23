@@ -1,27 +1,27 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import "./Navigation.css";
 import landinglogo from '../../images/landinglogo.png'
 // import SearchBar from "../SearchBar/SearchBar";
-import { thunkLogout } from "../../redux/session";
+// import { thunkLogout } from "../../redux/session";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import OpenModalMenuItem from "./OpenModalMenuItem";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function Navigation() {
   const user = useSelector(state => state.session.user)
   const [showMenu, setShowMenu] = useState(false);
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const ulRef = useRef();
-  const nav = useNavigate()
+  // const nav = useNavigate()
 
-  const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
-    setShowMenu(!showMenu);
-  };
+  // const toggleMenu = (e) => {
+  //   e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+  //   setShowMenu(!showMenu);
+  // };
 
   useEffect(() => {
     if (!showMenu) return;
@@ -39,12 +39,12 @@ function Navigation() {
 
   const closeMenu = () => setShowMenu(false);
 
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(thunkLogout());
-    closeMenu();
-    nav('/')
-  };
+  // const logout = (e) => {
+  //   e.preventDefault();
+  //   dispatch(thunkLogout());
+  //   closeMenu();
+  //   nav('/')
+  // };
 
   return (
     <div className='nav-container'>
