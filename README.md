@@ -22,7 +22,7 @@ https://aa-munch.onrender.com
 * All media should be able to be stored in AWS.
 * View all the business images / review images / menu item images
 * Create new business images / review images / menu item images.
-* Update the business images / review images / menu item images they have created.
+* Update the business images / review images they have created.
 <!-- * Delete the reviews they have created. -->
 
 ### 4. Menu
