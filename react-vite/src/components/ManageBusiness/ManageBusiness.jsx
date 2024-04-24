@@ -106,20 +106,27 @@ function ManageBusiness() {
                                         <NavLink className='manage-see-menu' to={`/business/${bus.id}/menus`}>See Menu</NavLink>
                                     )}
                                 </div>
-                                <img className='manage-bus-img ' src={bus.businessImages[0]?.url} alt={`Image for ${bus.title}`} />
+                                {bus.businessImages[0]?.url && (
+                                    <img className='manage-bus-img ' src={bus.businessImages[0]?.url} alt={`Image for ${bus.title}`} />
+                                )}
                             </div>
                         </NavLink>
-                        <button className='manage-btns'><NavLink to={`/business/${bus?.id}/edit`} className='manage-btn-text'>Update Business</NavLink></button>
-                        {/* <button className='manage-btns manage-delete'><NavLink to={`/business/${bus?.id}/delete`} className='manage-btn-text'>Delete Business</NavLink></button> */}
-                        <button className='manage-btns manage-delete'>
-                            <OpenModalMenuItem
-                                itemText='Delete Business'
-                                modalComponent={<DeleteBusiness businessId={bus.id} reRenderOnDelete={reRenderOnDelete} />}
-                            />
-                        </button>
-                        <button className='manage-btns'><NavLink to={`/business/${bus.id}/menus/new`} className='manage-btn-text'>Add Menu Item</NavLink></button>
+                        <NavLink to={`/business/${bus?.id}/edit`} className='manage-btns'>
+                            <button className='manage-btn-text'>Update Business</button>
+                        </NavLink>
+
+                        <NavLink to={`/business/${bus.id}/delete`} className='manage-btns manage-delete'>
+                            <button className='manage-btn-text'>Delete Business</button>
+                        </NavLink>
+
+                        <NavLink to={`/business/${bus.id}/menus/new`} className='manage-btns'>
+                            <button className='manage-btn-text'>Add Menu Item</button>
+                        </NavLink>
+
                         {!checkAmenity(bus.id) && (
-                            <button className='manage-btns'><NavLink to={`/business/${bus.id}/amenities`} className='manage-btn-text'>Add Amenities</NavLink></button>
+                            <NavLink to={`/business/${bus.id}/amenities`} className='manage-btns'>
+                                <button className='manage-btn-text'>Add Amenities</button>
+                            </NavLink>
                         )}
                     </div>
                 ))}
