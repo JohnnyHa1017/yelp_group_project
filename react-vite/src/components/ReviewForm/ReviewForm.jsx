@@ -63,23 +63,21 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
             }
         } else {
             const updateReview = await dispatch(updateReviewThunk(reviewObj, reviewId))
-            if (updateReview) {
+            if (updateReview && image) {
                 const formData = new FormData()
                 formData.append('url', image)
                 formData.append('review_id', reviewId)
 
                 if (!currRevImg) {
                     await dispatch(createReviewImageThunk(reviewId, formData))
-                }
-
-                if (currRevImg) {
+                    setImageLoading(true)
+                } else {
                     await dispatch(updateReviewImageThunk(currRevImg?.id, formData))
+                    setImageLoading(true)
                 }
-
-                setImageLoading(true)
-                nav(`/business/${businessId}`)
             }
         }
+        nav(`/business/${businessId}`)
     }
 
 
