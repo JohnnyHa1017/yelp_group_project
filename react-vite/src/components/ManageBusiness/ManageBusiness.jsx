@@ -115,9 +115,12 @@ function ManageBusiness() {
                             <button className='manage-btn-text'>Update Business</button>
                         </NavLink>
 
-                        <NavLink to={`/business/${bus.id}/delete`} className='manage-btns manage-delete'>
-                            <button className='manage-btn-text'>Delete Business</button>
-                        </NavLink>
+                        <button className='manage-btns manage-delete'>
+                            <OpenModalMenuItem
+                                itemText='Delete Business'
+                                modalComponent={<DeleteBusiness businessId={bus.id} reRenderOnDelete={reRenderOnDelete} />}
+                            />
+                        </button>
 
                         <NavLink to={`/business/${bus.id}/menus/new`} className='manage-btns'>
                             <button className='manage-btn-text'>Add Menu Item</button>
