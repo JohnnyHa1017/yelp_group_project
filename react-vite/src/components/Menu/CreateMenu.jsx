@@ -13,12 +13,9 @@ function CreateMenu() {
     const user = useSelector((state) => state.session.user)
     const businessObj = useSelector((state) => state.business)
 
-    console.log('businessObj[businessId] ==>', businessObj[businessId])
-
     let businessTitle = ''
     if (businessObj[businessId]) {
         businessTitle = businessObj[businessId].title
-        console.log('businessTitle ==>', businessTitle)
     }
 
     useEffect(() => {

@@ -85,11 +85,6 @@ export const specificBusinessThunk = (businessId) => async (dispatch) => {
 
     const one_data = await response.json()
 
-    // console.log("ONE_DATA IN SPECIFIC BUSINESS THUNK", one_data)
-    // !: THIS IS AN OBJECT OF TWO OBJECTS NAMED 'Business', 'Business_Images'
-    // ?: THIS HOLDS OBJECT BUSINESS {  DETAILS  }
-    // ?: AS WELL AS OBJECT BUSINESS_IMAGES NESTING AN ARRAY OF [{  IMAGES_DETAILS  }]
-
     if (one_data.errors) {
         return one_data.errors
     }
@@ -107,11 +102,6 @@ export const businessMenuThunk = (businessId) => async (dispatch) => {
     }
 
     const menu_data = await response.json()
-
-    console.log('MENU_DATA IN BUSINESS.JS THUNKS', menu_data)
-    // !: THIS IS AN OBJECT OF TWO OBJECTS NAMED 'Business_Images', 'Menu'
-    // ??: THIS IS AN OBJECT NAMED MENU NESTING AN ARRAY OF [{  MENU_ITEMS  }]
-    // ?: AS WELL AS OBJECT BUSINESS_IMAGES NESTING AN ARRAY OF [{  IMAGES_DETAILS  }]
 
     if (menu_data.errors) {
         return menu_data.errors

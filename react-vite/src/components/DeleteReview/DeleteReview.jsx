@@ -7,7 +7,6 @@ import './DeleteReview.css'
 const DeleteReview = ()=>{
     const { reviewId, businessId } = useParams()
     const nav = useNavigate()
-    // console.log('reviewId===>', reviewId)
     const dispatch = useDispatch()
     const onDelete = (e) => {
         e.preventDefault()

@@ -20,12 +20,6 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
     const [submitted, setSubmitted] = useState(false)
     const [hover, setHover] = useState(null)
 
-    console.log(submitted)
-    console.log(setImage)
-    console.log(imageLoading)
-
-    // console.log('buttonName in CreateReview =>', buttonName)
-    // console.log('reviewToUpdate in CreateReview =>', reviewToUpdate)
 
     useEffect(() => {
         if (!user) {
@@ -50,7 +44,6 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
             review, star, image
         }
         if (!reviewId) {
-            // console.log('CREATE REVIEW')
             const newReview = {
                 review, star
             }

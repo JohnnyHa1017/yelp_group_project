@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createNewAmenitiesThunk, specificBusinessThunk, businessAmenitiesThunk } from '../../redux/business'
 import './CreateAmenities.css'
@@ -17,8 +17,6 @@ function CreateAmenity() {
     const dispatch = useDispatch()
     const nav = useNavigate()
     const { businessId } = useParams()
-    const business = useSelector(state => state.business)
-    console.log(business)
 
     useEffect(() => {
         dispatch(specificBusinessThunk(businessId))
@@ -34,12 +32,9 @@ function CreateAmenity() {
     const [street_parking, setStreetParking] = useState(false)
     const [good_for_groups, setGoodForGroups] = useState(false)
     const [outdoor_seating, setOutdoorSeating] = useState(false)
-    const [submitted, setSubmitted] = useState(false)
-    console.log(submitted)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setSubmitted(true)
         const newAmenity = {
             reservation,
             delivery,

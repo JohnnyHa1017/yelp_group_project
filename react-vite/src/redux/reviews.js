@@ -29,7 +29,6 @@ const createReview = (newReview)=>{
 }
 
 const updateReview = (updatedReview)=>{
-    console.log("updatedReview ==>", updatedReview)
     return {
         type: UPDATE_REVIEW,
         updatedReview
@@ -56,8 +55,6 @@ const createReviewImage = (review) => {
 // Review Thunks
 export const allReviewThunk = () => async (dispatch) => {
     const response = await fetch('/api/reviews/all')
-
-    console.log('response ==>', response)
 
     if (!response.ok) {
         throw new Error('Failed to fetch reviews.')

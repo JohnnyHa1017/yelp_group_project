@@ -12,7 +12,6 @@ function DeleteBusiness({businessId, reRenderOnDelete}) {
     const nav = useNavigate()
     const { closeModal } = useModal()
 
-    console.log(state)
     useEffect(()=>{
         if(!currUser){
             nav('/')
