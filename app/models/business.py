@@ -39,6 +39,10 @@ class Business(db.Model):
   def business_reviews(self):
     return [review.to_dict() for review in self.reviews]
 
+  @property
+  def business_menu(self):
+    return [menu.to_dict() for menu in self.menus]
+
   def to_dict(self):
     return {
       'id': self.id,
@@ -56,6 +60,7 @@ class Business(db.Model):
       'description': self.description,
       'schedule':self.schedule,
       'businessImages': self.business_img,
-      'reviews': self.business_reviews
+      'reviews': self.business_reviews,
+      'menu': self.business_menu
       # 'image_url': self.image_url
     }
