@@ -23,10 +23,10 @@ import { FaPhoneVolume, FaRegKeyboard } from "react-icons/fa";
 
 export default function OneBusiness() {
   const dispatch = useDispatch()
-  const business = useSelector(state => state.business)
-  const reviews = useSelector(state => state.reviews)
-  const menus = useSelector(state => state.menus)
-  const currUser = useSelector(state => state.session)
+  const business = useSelector(state => state?.business)
+  const reviews = useSelector(state => state?.reviews)
+  const menus = useSelector(state => state?.menus)
+  const currUser = useSelector(state => state?.session)
   const { businessId } = useParams()
 
 

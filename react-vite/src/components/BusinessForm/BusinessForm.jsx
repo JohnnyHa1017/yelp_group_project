@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom'
-import { createBusinessImageThunk, createNewBusinessThunk, updateBusinessImageThunk, updateBusinessThunk } from '../../redux/business'
+import { createBusinessImageThunk, createNewBusinessThunk, specificBusinessThunk, updateBusinessImageThunk, updateBusinessThunk } from '../../redux/business'
+import Loading from '../Loading/Loading'
 import './BusinessForm.css'
 
 const CreateNewBusiness = ({ buttonName, business }) => {
@@ -139,7 +140,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         if(image){
           await dispatch(createBusinessImageThunk(createBusiness.id, formData))
           setImageLoading(true);
-          nav(`/business/${createBusiness.id}`);
         }
         nav(`/business/${createBusiness.id}`);
       }
