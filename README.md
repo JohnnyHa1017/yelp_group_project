@@ -1,5 +1,26 @@
 # munch!
 [![aa-projects-munch.png](https://i.postimg.cc/pV7s4077/aa-projects-munch.png)](https://postimg.cc/DmrQbc7d)
+
+# Features
+## Business
+![Business](app/Demo/BD.gif)
+
+## Create Business
+![Cbusiness](app/Demo/Createbzns.gif)
+
+## Reviews
+![Reviews](app/Demo/reviews.gif)
+
+## Menu
+![Menu](app/Demo/MenuItem.gif)
+
+## Amenity
+![Amenity](/app/Demo/Amenity.gif)
+
+## Categories
+![Categories](/app/Demo/searchfilter.gif)
+
+
 ## User Stories
 
 ## URL
@@ -22,7 +43,7 @@ https://aa-munch.onrender.com
 * All media should be able to be stored in AWS.
 * View all the business images / review images / menu item images
 * Create new business images / review images / menu item images.
-* Update the business images / review images / menu item images they have created.
+* Update the business images / review images they have created.
 <!-- * Delete the reviews they have created. -->
 
 ### 4. Menu
