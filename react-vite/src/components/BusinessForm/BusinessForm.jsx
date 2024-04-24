@@ -35,6 +35,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
+
   let isValidated = false
   useEffect(() => {
     if (!user) {
@@ -138,6 +139,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         if(image){
           await dispatch(createBusinessImageThunk(createBusiness.id, formData))
           setImageLoading(true);
+          nav(`/business/${createBusiness.id}`);
         }
         nav(`/business/${createBusiness.id}`);
       }
@@ -163,6 +165,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
 
 
   return (
+
     <form
       onSubmit={handleSubmit}
       encType="multipart/form-data"
