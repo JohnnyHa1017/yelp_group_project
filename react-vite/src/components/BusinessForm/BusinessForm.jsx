@@ -32,7 +32,6 @@ const CreateNewBusiness = ({ buttonName, business }) => {
   const [category, setCategory] = useState(business?.category);
   const [image, setImage] = useState(currBusiness[businessId]?.businessImages[0]?.url);
   const [imageLoading, setImageLoading] = useState(false);
-  // const [preview, setPreview] = useState(false)
   const [validations, setValidations] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
@@ -123,11 +122,8 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       lat,
       lng,
       category,
-      schedule: createSchedule,
-      // image
+      schedule: createSchedule
     };
-
-    // await Promise.resolve(formData);
 
 
     if (!businessId) {
@@ -145,7 +141,7 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       }
     } else {
       const updateBusiness = await dispatch(updateBusinessThunk(business, businessId));
-      if (updateBusiness) {
+      if (updateBusiness && image) {
         const formData = new FormData();
         formData.append("url", image);
         formData.append('preview', true)
@@ -153,11 +149,12 @@ const CreateNewBusiness = ({ buttonName, business }) => {
 
         if (currBusiness[businessId]?.businessImages[0]?.id) {
           await dispatch(updateBusinessImageThunk(currBusiness[businessId]?.businessImages[0]?.id, formData))
+          setImageLoading(true);
         }
         if (!currBusiness[businessId]?.businessImages[0]?.id) {
           await dispatch(createBusinessImageThunk(businessId, formData))
+          setImageLoading(true);
         }
-        setImageLoading(true);
         nav(`/business/${businessId}`);
       }
     }
