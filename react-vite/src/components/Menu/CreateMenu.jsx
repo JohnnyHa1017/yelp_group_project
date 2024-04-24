@@ -46,7 +46,7 @@ function CreateMenu() {
             if (!category || !['Drink', 'Appetizer', 'Entree', 'Dessert', 'Specials'].includes(category)) {
                 errors.category = 'Menu category must be one of: Drink, Appetizer, Entree, Dessert, or Specials.'
             }
-            if (!price || typeof price !== 'number') {
+            if (!price || isNaN(price)) {
                 errors.price = 'Price is required and must be a number'
             }
             if (price < 0) {
@@ -77,9 +77,10 @@ function CreateMenu() {
         formData.append('business_id', businessId)
         formData.append('menu_id', menu.id)
         formData.append('preview', false)
-
-        setImageLoading(true)
-        await dispatch(createBusinessImageThunk(businessId, formData))
+        if (image) {
+            setImageLoading(true)
+            await dispatch(createBusinessImageThunk(businessId, formData))
+        }
         nav(`/business/${businessId}`)
         // }
     }

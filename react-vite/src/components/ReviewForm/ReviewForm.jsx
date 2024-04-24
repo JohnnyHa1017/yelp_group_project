@@ -32,7 +32,7 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
         setSubmitted(true)
 
 
-        if (review.length<=15 || star <1){
+        if (review.length <= 15 || star < 1) {
             setValidations({
                 ...validations,
             })
@@ -53,7 +53,9 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
                 formData.append("url", image);
                 formData.append('review_id', newRev.id)
                 setImageLoading(true);
-                await dispatch(createReviewImageThunk(newRev.id, formData))
+                if (image) {
+                    await dispatch(createReviewImageThunk(newRev.id, formData))
+                }
                 nav(`/business/${businessId}`);
             } catch (error) {
                 setValidations({ ...validations, message: 'Cannot add review' })
@@ -61,11 +63,19 @@ const CreateNewReview = ({ buttonName, reviewToUpdate }) => {
             }
         } else {
             const updateReview = await dispatch(updateReviewThunk(reviewObj, reviewId))
-            if(updateReview){
+            if (updateReview) {
                 const formData = new FormData()
                 formData.append('url', image)
                 formData.append('review_id', reviewId)
-                await dispatch(updateReviewImageThunk(currRevImg.id, formData))
+
+                if (!currRevImg) {
+                    await dispatch(createReviewImageThunk(reviewId, formData))
+                }
+
+                if (currRevImg) {
+                    await dispatch(updateReviewImageThunk(currRevImg?.id, formData))
+                }
+
                 setImageLoading(true)
                 nav(`/business/${businessId}`)
             }

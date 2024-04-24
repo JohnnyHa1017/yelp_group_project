@@ -57,6 +57,10 @@
     width: 200px;
     height: 35px;
     margin: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
 }
 .manage-btns:hover{
     background-color: rgb(26,121,255);
@@ -67,6 +71,7 @@
     border: 1px solid rgb(175, 17, 17);
     color: white;
     list-style: none;
+    cursor: pointer;
 }
 .manage-delete:hover{
     background-color: rgb(231, 29, 29);
@@ -74,5 +79,9 @@
 }
 .manage-btn-text{
     color: white;
-    text-decoration: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border: none;
+    cursor: pointer;
 }
