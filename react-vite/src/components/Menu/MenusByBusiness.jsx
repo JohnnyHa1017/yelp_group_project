@@ -8,7 +8,7 @@ import Loading from '../Loading/Loading'
 function MenusByBusinessId({isFullPage}) {
     const dispatch = useDispatch()
     const { businessId } = useParams()
-    const stateMenus = useSelector((state) => state.menus.Menu)
+    // const stateMenus = useSelector((state) => state.menus.Menu)
     const menuImages = useSelector((state) => state.menus.Business_Images)
     const business = useSelector((state) => state.business[businessId])
 
@@ -20,9 +20,10 @@ function MenusByBusinessId({isFullPage}) {
     let entrees = []
     let desserts = []
     let specials = []
+    let currMenu = business.menu
 
-    if (menuImages && stateMenus) {
-        menus = stateMenus.filter(ele => ele.business_id == businessId)
+    if (menuImages && currMenu) {
+        menus = currMenu.filter(ele => ele.business_id == businessId)
         for (let img of menuImages) {
             if (img.business_id == businessId && img.menu_id) {
                 menu_images.push(img)
@@ -41,6 +42,7 @@ function MenusByBusinessId({isFullPage}) {
         dispatch(menuByBusinessThunk(businessId))
         dispatch(specificBusinessThunk(businessId)) //TO GET BUSINESS TITLE TO SHOW ON PAGE
     }, [dispatch, businessId])
+
 
     return (
         <section>
