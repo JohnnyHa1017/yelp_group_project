@@ -154,8 +154,8 @@ const CreateNewBusiness = ({ buttonName, business }) => {
           await dispatch(createBusinessImageThunk(businessId, formData))
           setImageLoading(true);
         }
-        nav(`/business/${businessId}`);
       }
+      nav(`/business/${businessId}`);
     }
   };
 
