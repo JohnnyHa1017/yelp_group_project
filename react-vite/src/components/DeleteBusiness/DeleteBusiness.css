@@ -26,6 +26,7 @@
 .delete-modal-btn:hover{
     background-color: grey;
     border: 1px solid grey;
+    cursor: pointer;
 }
 
 .confirm-delete-btn{

@@ -57,13 +57,13 @@ const CreateNewBusiness = ({ buttonName, business }) => {
       if (!country || (country.length > 50)) {
         errors.country = 'Country is required and can only be under 50 characters.'
       }
-      if (!lat || (lat >= 90) || (lat <= -90)) {
+      if (!lat || (lat > 90) || (lat < -90)) {
         errors.lat = 'Latitude must be a number between -90 and 90.'
       }
       if (isNaN(lat) && lat.length > 1) {
         errors.lat_int = 'Latitude can only contain numbers.'
       }
-      if (!lng || (lng >= 180) || (lng <= -180)) {
+      if (!lng || (lng > 180) || (lng < -180)) {
         errors.lng = 'Longitude must be between -180 and 180.'
       }
       if (isNaN(lng) && lng.length > 1) {
@@ -135,8 +135,10 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         formData.append("url", image);
         formData.append('preview', true)
         formData.append('business_id', createBusiness.id)
-        await dispatch(createBusinessImageThunk(createBusiness.id, formData))
-        setImageLoading(true);
+        if(image){
+          await dispatch(createBusinessImageThunk(createBusiness.id, formData))
+          setImageLoading(true);
+        }
         nav(`/business/${createBusiness.id}`);
       }
     } else {
@@ -146,7 +148,13 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         formData.append("url", image);
         formData.append('preview', true)
         formData.append('business_id', businessId)
-        await dispatch(updateBusinessImageThunk(currBusiness[businessId]?.businessImages[0]?.id, formData))
+
+        if (currBusiness[businessId]?.businessImages[0]?.id) {
+          await dispatch(updateBusinessImageThunk(currBusiness[businessId]?.businessImages[0]?.id, formData))
+        }
+        if (!currBusiness[businessId]?.businessImages[0]?.id) {
+          await dispatch(createBusinessImageThunk(businessId, formData))
+        }
         setImageLoading(true);
         nav(`/business/${businessId}`);
       }
@@ -877,8 +885,8 @@ const CreateNewBusiness = ({ buttonName, business }) => {
         </datalist>
       </label> */}
       <div className="bzns-submit-container">
-      <button className="bzns-submit-btn" id='submit-button' type='submit' disabled={isValidated}>{buttonName}</button>
-      {(imageLoading) && <p>Loading...</p>}
+        <button className="bzns-submit-btn" id='submit-button' type='submit' disabled={isValidated}>{buttonName}</button>
+        {(imageLoading) && <p>Loading...</p>}
       </div>
     </form>
   )

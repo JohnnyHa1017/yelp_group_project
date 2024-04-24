@@ -6,7 +6,7 @@ import { getAllMenusThunk } from '../../redux/menu';
 import DeleteBusiness from '../DeleteBusiness/DeleteBusiness';
 import './ManageBusiness.css'
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-
+import Loading from '../Loading/Loading';
 
 function ManageBusiness() {
     const dispatch = useDispatch()
@@ -25,27 +25,27 @@ function ManageBusiness() {
         dispatch(landingPageThunk())
         dispatch(getAllMenusThunk())
         dispatch(getBusinessImagesThunk())
-    },[dispatch, deleteBus])
+    }, [dispatch, deleteBus])
 
-    if(!currUser || !business || !amenities || !menus || !busImgs){
-        return <div>Loading...</div>
+    if (!currUser || !business || !amenities || !menus || !busImgs) {
+        return <div><Loading /></div>
     }
 
     const currBusiness = []
-    for(let bus of business){ //adding business into the currBus arr
-        if(bus?.owner_id == currUser?.id){
+    for (let bus of business) { //adding business into the currBus arr
+        if (bus?.owner_id == currUser?.id) {
             currBusiness.push(bus)
         }
     }
 
-    function getImgs(businessId) {
-        let imgs= busImgs.filter(img => img.business_id == businessId);
-        const length = imgs.length
-        if(length){
-            return imgs[Math.floor(Math.random() * length)].url
-        }
-        return null
-    }
+    // function getImgs(businessId) {
+    //     let imgs = busImgs.filter(img => img.business_id == businessId);
+    //     const length = imgs.length
+    //     if (length) {
+    //         return imgs[Math.floor(Math.random() * length)].url
+    //     }
+    //     return null
+    // }
 
 
     let amenityArr = []
@@ -59,7 +59,7 @@ function ManageBusiness() {
         }
     }
 
-    function checkAmenity (businessId) {
+    function checkAmenity(businessId) {
         for (let a of amenityArr) {
             if (a.business_id == businessId) {
                 return true
@@ -67,21 +67,20 @@ function ManageBusiness() {
         }
         return false
     }
-    const menuArr = Object.keys(menus).map( key => ({
+    const menuArr = Object.keys(menus).map(key => ({
         id: key,
         ...menus[key]
     }))
 
-    function checkMenu(businessId){
-        for(let m of menuArr){
-            if(m.business_id == businessId){
+    function checkMenu(businessId) {
+        for (let m of menuArr) {
+            if (m.business_id == businessId) {
                 return true
             }
         }
         return false
     }
-
-    return(
+    return (
         <>
             <h1>Hello {currUser.first_name}</h1>
             <h2 className='your-business-text'>Your Businesses</h2>
@@ -97,7 +96,7 @@ function ManageBusiness() {
                 )}
                 {currBusiness.map(bus => (
                     <div key={bus.id} className='manage-onebusiness-container'>
-                        <NavLink className='manage-nav-container'key={bus?.id} to={`/business/${bus?.id}`}>
+                        <NavLink className='manage-nav-container' key={bus?.id} to={`/business/${bus?.id}`}>
                             <div className='nav-bus-container'>
                                 <div className='manage-address-container'>
                                     <p className='manage-bus-title'>{bus?.title}</p>
@@ -107,9 +106,7 @@ function ManageBusiness() {
                                         <NavLink className='manage-see-menu' to={`/business/${bus.id}/menus`}>See Menu</NavLink>
                                     )}
                                 </div>
-                            {getImgs(bus.id) && (
-                                <img className='manage-bus-img 'src={getImgs(bus.id)} alt={`Image for ${bus.title}`} />
-                                )}
+                                <img className='manage-bus-img ' src={bus.businessImages[0]?.url} alt={`Image for ${bus.title}`} />
                             </div>
                         </NavLink>
                         <button className='manage-btns'><NavLink to={`/business/${bus?.id}/edit`} className='manage-btn-text'>Update Business</NavLink></button>
@@ -117,7 +114,7 @@ function ManageBusiness() {
                         <button className='manage-btns manage-delete'>
                             <OpenModalMenuItem
                                 itemText='Delete Business'
-                                modalComponent={<DeleteBusiness businessId={bus.id} reRenderOnDelete={reRenderOnDelete}/>}
+                                modalComponent={<DeleteBusiness businessId={bus.id} reRenderOnDelete={reRenderOnDelete} />}
                             />
                         </button>
                         <button className='manage-btns'><NavLink to={`/business/${bus.id}/menus/new`} className='manage-btn-text'>Add Menu Item</NavLink></button>
